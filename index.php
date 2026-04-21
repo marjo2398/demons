@@ -165,17 +165,17 @@ $bannerVer = get_setting($pdo, 'banner_version') ?? time();
 <?php
 $pageTitle = t('title');
 $pageStyles = <<<CSS
-body { font-family: 'Inter', sans-serif; background-color: #111827; color: #e5e7eb; }
-.card { background-color: #1f2937; border: 1px solid #374151; }
+body { font-family: 'Inter', sans-serif; background-color: #020617; color: #e5e7eb; }
+.card { background-color: #0f172a; border: 1px solid #1e293b; }
 table { width: 100%; border-collapse: collapse; }
-.table-header { background-color: #111827; color: #9ca3af; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; cursor: pointer; user-select: none; }
-.table-header:hover { background-color: #374151; color: white; }
-.table-row { border-bottom: 1px solid #374151; }
+.table-header { background-color: #020617; color: #9ca3af; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; cursor: pointer; user-select: none; }
+.table-header:hover { background-color: #1e293b; color: white; }
+.table-row { border-bottom: 1px solid #1e293b; }
 .table-row:last-child { border-bottom: none; }
 td, th { vertical-align: middle; }
 .custom-scroll::-webkit-scrollbar { width: 6px; }
-.custom-scroll::-webkit-scrollbar-track { background: #1f2937; }
-.custom-scroll::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 3px; }
+.custom-scroll::-webkit-scrollbar-track { background: #0f172a; }
+.custom-scroll::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
 th.sort-asc::after { content: " ▲"; font-size: 0.7em; }
 th.sort-desc::after { content: " ▼"; font-size: 0.7em; }
 @keyframes pulse-red { 0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); } 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); } }
@@ -185,26 +185,26 @@ $bodyClass = 'min-h-screen flex flex-col';
 require_once 'partials/header.php';
 ?>
 
-    <div class="w-full bg-black">
+    <div class="w-full bg-slate-950">
         <img src="icons/baner.png?v=<?= $bannerVer ?>" alt="Banner" class="block w-full shadow-2xl" style="width: 100%; height: auto; display: block;">
     </div>
 
-    <nav class="bg-zinc-900 border-b border-zinc-800 sticky top-0 z-50 shadow-md">
+    <nav class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50 shadow-md">
         <div class="container mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
             <div>
                 <h1 class="text-2xl font-bold text-white tracking-wide"><?= t('title') ?></h1>
             </div>
             <div class="flex items-center gap-4">
                 <div class="text-sm font-semibold flex gap-2">
-                    <a href="?lang=en" class="<?= $lang=='en'?'text-red-400':'text-gray-400 hover:text-white' ?>">EN</a>
+                    <a href="?lang=en" class="<?= $lang=='en'?'text-indigo-400':'text-gray-400 hover:text-white' ?>">EN</a>
                     <span class="text-gray-600">|</span>
-                    <a href="?lang=pl" class="<?= $lang=='pl'?'text-red-400':'text-gray-400 hover:text-white' ?>">PL</a>
+                    <a href="?lang=pl" class="<?= $lang=='pl'?'text-indigo-400':'text-gray-400 hover:text-white' ?>">PL</a>
                     <span class="text-gray-600">|</span>
-                    <a href="?lang=ru" class="<?= $lang=='ru'?'text-red-400':'text-gray-400 hover:text-white' ?>">RU</a>
+                    <a href="?lang=ru" class="<?= $lang=='ru'?'text-indigo-400':'text-gray-400 hover:text-white' ?>">RU</a>
                 </div>
-                <a href="rules.php" class="text-sm text-gray-400 hover:text-red-400 uppercase font-bold tracking-wide mr-2 transition"><?= t('rules') ?></a>
+                <a href="rules.php" class="text-sm text-gray-400 hover:text-indigo-400 uppercase font-bold tracking-wide mr-2 transition"><?= t('rules') ?></a>
                 
-                <a href="host.php" class="bg-red-700 hover:bg-red-600 text-white text-sm font-bold py-2 px-4 rounded shadow transition border border-red-600 hover:border-red-500">
+                <a href="host.php" class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-bold py-2 px-4 rounded-xl transition-all shadow-md transition border border-indigo-600 hover:border-indigo-500">
                     <?= t('start_kundun') ?>
                 </a>
             </div>
@@ -214,10 +214,10 @@ require_once 'partials/header.php';
     <main class="container mx-auto px-4 py-8 space-y-10 flex-grow">
             <!-- PRZYCISK CZATU - Z LICZNIKIEM (POPRAWIONY LINK) -->
             <div class="flex justify-center mb-8 relative">
-                <a href="ironlegionchat.php" class="inline-block bg-zinc-800 hover:bg-zinc-700 transition-all transform hover:scale-102 border-2 border-red-600 rounded-xl px-10 py-3 shadow-lg relative">
+                <a href="ironlegionchat.php" class="inline-block bg-slate-800 hover:bg-slate-700 transition-all transform hover:scale-102 border-2 border-indigo-600 rounded-xl px-10 py-3  relative">
                     <span class="text-white text-1xl uppercase tracking-[0.15em] font-medium">DEMONS CHAT</span>
                     <?php if($chatNotify > 0): ?>
-                        <div class="absolute -top-3 -right-3 bg-red-600 text-white text-xs font-bold w-8 h-8 flex items-center justify-center rounded-full border-2 border-zinc-950 notify-badge z-10">
+                        <div class="absolute -top-3 -right-3 bg-indigo-500 text-white text-xs font-bold w-8 h-8 flex items-center justify-center rounded-full border-2 border-zinc-950 notify-badge z-10">
                             <?= $chatNotify > 99 ? '99+' : $chatNotify ?>
                         </div>
                     <?php endif; ?>
@@ -225,11 +225,11 @@ require_once 'partials/header.php';
             </div>
         
         <?php if($lastSession): ?>
-        <section class="card rounded-lg p-6 shadow-lg">
-            <div class="flex justify-between items-center mb-6 border-b border-zinc-800 pb-2">
+        <section class="card rounded-2xl border border-slate-800 shadow-2xl p-6 ">
+            <div class="flex justify-between items-center mb-6 border-b border-slate-800 pb-2">
                 <div class="flex items-center gap-4">
-                    <h2 class="text-xl font-bold text-red-500"><?= t('last_battle') ?></h2>
-                    <a href="oral.php" class="bg-zinc-900 hover:bg-zinc-800 text-white-400 hover:text-white font-bold py-1.5 px-4 rounded border border-red-600 transition text-medium uppercase">ALL BATTLES</a>
+                    <h2 class="text-xl font-bold text-indigo-400"><?= t('last_battle') ?></h2>
+                    <a href="oral.php" class="bg-slate-900 hover:bg-slate-800 text-white-400 hover:text-white font-bold py-1.5 px-4 rounded border border-indigo-600 transition text-medium uppercase rounded-xl">ALL BATTLES</a>
                 </div>
                 <div class="text-right">
                                     <span class="block text-white font-bold text-lg"><?= htmlspecialchars($lastSession['info']['boss']) ?></span>
@@ -241,21 +241,21 @@ require_once 'partials/header.php';
                 <p class="text-gray-400 text-sm uppercase mb-3"><?= t('dropped_items') ?></p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                     <?php if(empty($lastSession['loot'])): ?><span class="text-gray-500 italic">-</span><?php else: foreach($lastSession['loot'] as $loot): ?>
-                    <div class="bg-zinc-950 p-2 rounded border border-zinc-800 flex items-center gap-3">
-                        <div class="w-10 h-10 flex items-center justify-center bg-black/50 rounded shrink-0">
+                    <div class="bg-slate-950 p-2 rounded border border-slate-800 flex items-center gap-3">
+                        <div class="w-10 h-10 flex items-center justify-center bg-slate-950/50 rounded shrink-0">
                             <?php if($loot['icon']): ?><img src="icons/<?= htmlspecialchars($loot['icon']) ?>" class="max-w-full max-h-full object-contain"><?php endif; ?>
                         </div>
-                        <div class="flex flex-col"><span class="text-red-100 text-sm font-bold"><?= htmlspecialchars($loot['item_name']) ?></span><span class="text-green-500 text-xs"><?= $loot['winner'] ? htmlspecialchars($loot['winner']) : '---' ?></span></div>
+                        <div class="flex flex-col"><span class="text-indigo-100 text-sm font-bold"><?= htmlspecialchars($loot['item_name']) ?></span><span class="text-green-500 text-xs"><?= $loot['winner'] ? htmlspecialchars($loot['winner']) : '---' ?></span></div>
                     </div>
                     <?php endforeach; endif; ?>
                 </div>
             </div>
 
-            <div class="border-t border-zinc-800 pt-4">
+            <div class="border-t border-slate-800 pt-4">
                 <p class="text-gray-400 text-sm uppercase mb-2">Obecni (<?= count($lastSession['present']) ?>)</p>
                 <div class="flex flex-wrap gap-2">
                     <?php foreach($lastSession['present'] as $pNick): ?>
-                        <span class="text-xs bg-zinc-900 border border-zinc-700 px-3 py-1 rounded-full text-gray-300 shadow-sm"><?= htmlspecialchars($pNick) ?></span>
+                        <span class="text-xs bg-slate-900 border border-slate-700 px-3 py-1 rounded-full text-gray-300 shadow-sm"><?= htmlspecialchars($pNick) ?></span>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -263,27 +263,27 @@ require_once 'partials/header.php';
         <?php endif; ?>
 
         <section>
-            <h2 class="text-2xl font-bold text-white mb-6 pl-2 border-l-4 border-red-700"><?= t('queues') ?></h2>
+            <h2 class="text-2xl font-bold text-white mb-6 pl-2 border-l-4 border-indigo-700"><?= t('queues') ?></h2>
            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 items-start">
                 <?php foreach ($items as $item): $iid = $item['id']; $queue = $queuesByItem[$iid] ?? []; ?>
-               <div class="card rounded-lg hover:border-red-700 transition duration-300">
-                    <div class="bg-zinc-900 p-3 border-b border-zinc-800 flex items-center gap-3">
-                        <div class="w-10 h-10 bg-zinc-950 rounded border border-zinc-700 flex items-center justify-center shrink-0">
+               <div class="card rounded-2xl border border-slate-800 shadow-2xl hover:border-indigo-700 transition duration-300">
+                    <div class="bg-slate-900 p-3 border-b border-slate-800 flex items-center gap-3">
+                        <div class="w-10 h-10 bg-slate-950 rounded border border-slate-700 flex items-center justify-center shrink-0">
                             <?php if(!empty($item['icon'])): ?><img src="icons/<?= htmlspecialchars($item['icon']) ?>" class="w-8 h-8 object-contain p-1"><?php endif; ?>
                         </div>
-                        <h3 class="font-bold text-red-500 truncate"><?= htmlspecialchars($item['name']) ?></h3>
+                        <h3 class="font-bold text-indigo-400 truncate"><?= htmlspecialchars($item['name']) ?></h3>
                     </div>
                     <div class="p-0 max-h-[70vh] overflow-y-auto custom-scroll">
-                        <ul class="divide-y divide-zinc-800">
+                        <ul class="divide-y divide-slate-800">
                             <?php foreach($queue as $row): $isBanned = $playersBanned[$row['pid']] ?? 0; $isExcluded = $row['is_excluded'] ?? 0; $delta = $deltas[$iid][$row['pid']] ?? 0; ?>
-                            <li class="px-4 py-2 text-sm flex items-center gap-2 <?= $row['position'] == 1 && !$isBanned && !$isExcluded ? 'bg-red-950/10' : '' ?> <?= $isBanned ? 'opacity-40 grayscale' : ($isExcluded ? 'opacity-50 italic' : '') ?>">
+                            <li class="px-4 py-2 text-sm flex items-center gap-2 <?= $row['position'] == 1 && !$isBanned && !$isExcluded ? 'bg-indigo-950/10' : '' ?> <?= $isBanned ? 'opacity-40 grayscale' : ($isExcluded ? 'opacity-50 italic' : '') ?>">
                                 <span class="text-gray-500 w-4"><?= $row['position'] ?>.</span>
                                 <div class="flex-grow flex items-center justify-between">
                                     <div class="flex items-center gap-2">
                                         <?php if($row['position'] == 1 && !$isBanned && !$isExcluded): ?><span class="w-2 h-2 rounded-full bg-green-500 shrink-0"></span><span class="text-white font-bold"><?= htmlspecialchars($row['nick']) ?></span>
-                                        <?php else: ?><span class="w-2 h-2 rounded-full <?= $isBanned ? 'bg-red-900' : ($isExcluded ? 'bg-zinc-900 border border-zinc-700' : 'bg-zinc-700') ?> shrink-0"></span><span class="<?= $isBanned ? 'text-gray-500 line-through' : ($isExcluded ? 'text-gray-600' : 'text-gray-400') ?>"><?= htmlspecialchars($row['nick']) ?></span><?php endif; ?>
+                                        <?php else: ?><span class="w-2 h-2 rounded-full <?= $isBanned ? 'bg-indigo-900' : ($isExcluded ? 'bg-slate-900 border border-slate-700' : 'bg-slate-700') ?> shrink-0"></span><span class="<?= $isBanned ? 'text-gray-500 line-through' : ($isExcluded ? 'text-gray-600' : 'text-gray-400') ?>"><?= htmlspecialchars($row['nick']) ?></span><?php endif; ?>
                                     </div>
-                                    <?php if ($delta != 0 && !$isBanned && !$isExcluded): ?><span class="text-[10px] font-bold <?= $delta > 0 ? 'text-green-500' : 'text-red-500' ?>"><?= $delta > 0 ? '▲' : '▼' ?> <?= abs($delta) ?></span><?php endif; ?>
+                                    <?php if ($delta != 0 && !$isBanned && !$isExcluded): ?><span class="text-[10px] font-bold <?= $delta > 0 ? 'text-green-500' : 'text-indigo-400' ?>"><?= $delta > 0 ? '▲' : '▼' ?> <?= abs($delta) ?></span><?php endif; ?>
                                 </div>
                             </li>
                             <?php endforeach; ?>
@@ -295,28 +295,28 @@ require_once 'partials/header.php';
         </section>
 
         <section class="grid grid-cols-1 xl:grid-cols-3 gap-8 mt-12">
-            <div class="xl:col-span-2 card rounded-lg p-5 overflow-x-auto">
+            <div class="xl:col-span-2 card rounded-2xl border border-slate-800 shadow-2xl p-5 overflow-x-auto">
                 <h2 class="text-lg font-bold text-white mb-4"><?= t('loot_history') ?></h2>
                 <table class="w-full text-sm text-left table-fixed" id="lootTable">
-                    <thead><tr class="table-header"><th class="p-2 w-32" onclick="sortTable(0)">Name</th><?php $col=1; foreach ($items as $item): ?><th class="p-2 text-center w-12" onclick="sortTable(<?= $col++ ?>)"><?php if($item['icon']): ?><img src="icons/<?= htmlspecialchars($item['icon']) ?>" class="w-5 h-5 mx-auto opacity-70 pointer-events-none object-contain"><?php else: ?><?= mb_substr($item['name'],0,3) ?><?php endif; ?></th><?php endforeach; ?><th class="p-2 text-right text-red-500 w-16" onclick="sortTable(<?= $col ?>)"><?= t('total') ?></th></tr></thead>
+                    <thead><tr class="table-header"><th class="p-2 w-32" onclick="sortTable(0)">Name</th><?php $col=1; foreach ($items as $item): ?><th class="p-2 text-center w-12" onclick="sortTable(<?= $col++ ?>)"><?php if($item['icon']): ?><img src="icons/<?= htmlspecialchars($item['icon']) ?>" class="w-5 h-5 mx-auto opacity-70 pointer-events-none object-contain"><?php else: ?><?= mb_substr($item['name'],0,3) ?><?php endif; ?></th><?php endforeach; ?><th class="p-2 text-right text-indigo-400 w-16" onclick="sortTable(<?= $col ?>)"><?= t('total') ?></th></tr></thead>
                     <tbody>
                         <?php foreach($statsPlayers as $row): ?>
-                        <tr class="table-row hover:bg-zinc-900"><td class="p-2 font-bold <?= $row['is_out'] ? 'text-gray-600 italic' : 'text-gray-300' ?> truncate"><?= htmlspecialchars($row['nick']) ?></td><?php foreach ($items as $item): $cnt = $row['items'][$item['id']]; ?><td class="p-2 text-center <?= $cnt > 0 ? 'text-red-500 font-bold' : 'text-gray-700' ?>"><?= $cnt > 0 ? $cnt : '-' ?></td><?php endforeach; ?><td class="p-2 text-right font-bold text-white"><?= $row['total'] ?></td></tr>
+                        <tr class="table-row hover:bg-slate-800/50"><td class="p-2 font-bold <?= $row['is_out'] ? 'text-gray-600 italic' : 'text-gray-300' ?> truncate"><?= htmlspecialchars($row['nick']) ?></td><?php foreach ($items as $item): $cnt = $row['items'][$item['id']]; ?><td class="p-2 text-center <?= $cnt > 0 ? 'text-indigo-400 font-bold' : 'text-gray-700' ?>"><?= $cnt > 0 ? $cnt : '-' ?></td><?php endforeach; ?><td class="p-2 text-right font-bold text-white"><?= $row['total'] ?></td></tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
 
-            <div class="card rounded-lg p-5">
+            <div class="card rounded-2xl border border-slate-800 shadow-2xl p-5">
                 <h2 class="text-lg font-bold text-white mb-4"><?= t('attendance') ?></h2>
                 <div class="overflow-y-auto max-h-[500px] custom-scroll">
                     <table class="w-full text-sm" id="attendanceTable">
-                        <tbody class="divide-y divide-zinc-800">
+                        <tbody class="divide-y divide-slate-800">
                             <?php foreach($presenceStats as $p): ?>
-                            <tr class="hover:bg-zinc-900">
+                            <tr class="hover:bg-slate-800/50">
                                 <td class="py-3 px-2">
                                     <div class="flex justify-between mb-1"><span class="<?= $p['is_out'] ? 'text-gray-600 italic' : 'text-gray-300 font-semibold' ?>"><?= htmlspecialchars($p['nick']) ?></span><div class="text-right"><span class="text-gray-500 text-xs mr-2 font-mono">(<?= $p['count'] ?> / <?= $p['total_sess'] ?>)</span><span class="text-green-400 text-xs"><?= $p['pct'] ?>%</span></div></div>
-                                    <div class="w-full bg-zinc-950 rounded-full h-1.5"><div class="<?= $p['is_out'] ? 'bg-zinc-700' : 'bg-green-600' ?> h-1.5 rounded-full" style="width: <?= $p['pct'] ?>%"></div></div>
+                                    <div class="w-full bg-slate-950 rounded-full h-1.5"><div class="<?= $p['is_out'] ? 'bg-slate-700' : 'bg-green-600' ?> h-1.5 rounded-full" style="width: <?= $p['pct'] ?>%"></div></div>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -327,7 +327,7 @@ require_once 'partials/header.php';
         </section>
     </main>
 
-    <footer class="bg-zinc-950 border-t border-zinc-900 py-6 text-center text-gray-500 text-xs">Lolipop / IronLegion &reg; All rights reserved <?= date('Y') ?></footer>
+    <footer class="bg-slate-950 border-t border-slate-900 py-6 text-center text-gray-500 text-xs">Lolipop / IronLegion &reg; All rights reserved <?= date('Y') ?></footer>
 
     <script>
     function sortTable(n) {
