@@ -33,12 +33,12 @@ if ($sessionData) {
 // ==========================================================
 // SYMULACJA ZMIAN POZYCJI (DELTA) - SILNIK V19
 // ==========================================================
-$deltas = []; 
+$deltas = [];
 if ($sessionData) {
     $allP = $pdo->query("SELECT id, is_out, is_loot_banned FROM players")->fetchAll(PDO::FETCH_ASSOC);
     $allI = $pdo->query("SELECT id FROM items")->fetchAll(PDO::FETCH_COLUMN);
     $allSess = $pdo->query("SELECT id FROM sessions ORDER BY created_at ASC, id ASC")->fetchAll(PDO::FETCH_COLUMN);
-    
+
     $pMap = []; foreach($allP as $p) $pMap[$p['id']] = $p;
     $sLootMap = []; $stmt = $pdo->query("SELECT session_id, item_id, winner_player_id FROM session_loot"); while($r = $stmt->fetch(PDO::FETCH_ASSOC)) { $sLootMap[$r['session_id']][$r['item_id']][] = $r['winner_player_id']; }
     $sPresMap = []; $stmt = $pdo->query("SELECT session_id, player_id FROM session_players"); while($r = $stmt->fetch(PDO::FETCH_ASSOC)) { $sPresMap[$r['session_id']][$r['player_id']] = true; }
@@ -72,7 +72,7 @@ if ($sessionData) {
         foreach ($q as $pid) {
             if (!($pMap[$pid]['is_out'] ?? false)) {
                 $oldRank = $deltas[$iid][$pid] ?? $rank;
-                $deltas[$iid][$pid] = $oldRank - $rank; 
+                $deltas[$iid][$pid] = $oldRank - $rank;
                 $rank++;
             }
         }
@@ -85,7 +85,7 @@ $chatNotify = 0;
 try {
     // Sprawdzamy ciasteczko
     $lastVisit = $_COOKIE['chat_last_visit'] ?? date('Y-m-d H:i:s', strtotime('-1 day'));
-    
+
     // Liczymy wiadomości nowsze niż ostatnia wizyta
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM chat_messages WHERE created_at > ?");
     $stmt->execute([$lastVisit]);
@@ -120,16 +120,16 @@ $allSessionIds = $allSessStmt->fetchAll(PDO::FETCH_COLUMN);
 
 if (!empty($allSessionIds)) {
     $totalGlobalSess = count($allSessionIds);
-    $presQuery = "SELECT p.nick, p.is_out, COUNT(sp.session_id) as c, MIN(sp.session_id) as first_sid 
-                  FROM players p 
-                  LEFT JOIN session_players sp ON p.id = sp.player_id 
+    $presQuery = "SELECT p.nick, p.is_out, COUNT(sp.session_id) as c, MIN(sp.session_id) as first_sid
+                  FROM players p
+                  LEFT JOIN session_players sp ON p.id = sp.player_id
                   GROUP BY p.id, p.nick, p.is_out";
     $presData = $pdo->query($presQuery)->fetchAll();
 
     foreach($presData as $pd) {
         $firstSid = $pd['first_sid'];
         $attendanceCount = $pd['c'];
-        
+
         if ($firstSid) {
             $possibleSessions = 0;
             foreach ($allSessionIds as $sid) {
@@ -142,16 +142,16 @@ if (!empty($allSessionIds)) {
         }
 
         $pct = ($possibleSessions > 0) ? round(($attendanceCount / $possibleSessions) * 100, 1) : 0;
-        
+
         $presenceStats[] = [
-            'nick'       => $pd['nick'], 
-            'count'      => $attendanceCount, 
+            'nick'       => $pd['nick'],
+            'count'      => $attendanceCount,
             'total_sess' => $possibleSessions,
-            'pct'        => $pct, 
+            'pct'        => $pct,
             'is_out'     => $pd['is_out']
         ];
     }
-    
+
     usort($presenceStats, function($a, $b) {
         if ($b['pct'] == $a['pct']) {
             return $b['count'] <=> $a['count'];
@@ -196,14 +196,14 @@ require_once 'partials/header.php';
             </div>
             <div class="flex items-center gap-4">
                 <div class="text-sm font-semibold flex gap-2">
-                    <a href="?lang=en" class="<?= $lang=='en'?'text-slate-400':'text-gray-400 hover:text-slate-200' ?>">EN</a>
+                    <a href="?lang=en" class="<?= $lang=='en'?'text-indigo-400':'text-gray-400 hover:text-white' ?>">EN</a>
                     <span class="text-gray-600">|</span>
-                    <a href="?lang=pl" class="<?= $lang=='pl'?'text-slate-400':'text-gray-400 hover:text-slate-200' ?>">PL</a>
+                    <a href="?lang=pl" class="<?= $lang=='pl'?'text-indigo-400':'text-gray-400 hover:text-white' ?>">PL</a>
                     <span class="text-gray-600">|</span>
-                    <a href="?lang=ru" class="<?= $lang=='ru'?'text-slate-400':'text-gray-400 hover:text-slate-200' ?>">RU</a>
+                    <a href="?lang=ru" class="<?= $lang=='ru'?'text-indigo-400':'text-gray-400 hover:text-white' ?>">RU</a>
                 </div>
-                <a href="rules.php" class="text-sm text-gray-400 hover:text-slate-200 uppercase font-bold tracking-wide mr-2 transition"><?= t('rules') ?></a>
-                
+                <a href="rules.php" class="text-sm text-gray-400 hover:text-indigo-400 uppercase font-bold tracking-wide mr-2 transition"><?= t('rules') ?></a>
+
                 <a href="host.php" class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-bold py-2 px-4 rounded-xl transition-all shadow-md transition border border-indigo-600 hover:border-indigo-500">
                     <?= t('start_kundun') ?>
                 </a>
@@ -214,8 +214,8 @@ require_once 'partials/header.php';
     <main class="container mx-auto px-4 py-8 space-y-10 flex-grow">
             <!-- PRZYCISK CZATU - Z LICZNIKIEM (POPRAWIONY LINK) -->
             <div class="flex justify-center mb-8 relative">
-                <a href="ironlegionchat.php" class="inline-block bg-slate-800 hover:bg-slate-700 transition-all transform hover:scale-102 border-2 border-indigo-600 rounded-xl px-10 py-3  relative">
-                    <span class="text-slate-200 text-1xl uppercase tracking-[0.15em] font-medium">DEMONS CHAT</span>
+                <a href="ironlegionchat.php" class="inline-block bg-slate-800 hover:bg-slate-700 transition-all transform hover:scale-102 border-2 border-indigo-600 rounded-xl px-10 py-3 relative">
+                    <span class="text-slate-400 text-1xl uppercase tracking-[0.15em] font-medium">DEMONS CHAT</span>
                     <?php if($chatNotify > 0): ?>
                         <div class="absolute -top-3 -right-3 bg-indigo-500 text-white text-xs font-bold w-8 h-8 flex items-center justify-center rounded-full border-2 border-zinc-950 notify-badge z-10">
                             <?= $chatNotify > 99 ? '99+' : $chatNotify ?>
@@ -223,20 +223,20 @@ require_once 'partials/header.php';
                     <?php endif; ?>
                 </a>
             </div>
-        
+
         <?php if($lastSession): ?>
-        <section class="card rounded-2xl border border-slate-800 shadow-2xl p-6 ">
+        <section class="card rounded-2xl border border-slate-800 shadow-2xl p-6">
             <div class="flex justify-between items-center mb-6 border-b border-slate-800 pb-2">
                 <div class="flex items-center gap-4">
                     <h2 class="text-xl font-bold text-slate-200"><?= t('last_battle') ?></h2>
-                    <a href="oral.php" class="bg-slate-900 hover:bg-slate-800 text-slate-200 hover:text-slate-200 font-bold py-1.5 px-4 rounded border border-indigo-600 transition text-medium uppercase rounded-xl">ALL BATTLES</a>
+                    <a href="oral.php" class="bg-slate-900 hover:bg-slate-800 text-slate-200 hover:text-white font-bold py-1.5 px-4 rounded border border-indigo-600 transition text-medium uppercase rounded-xl">ALL BATTLES</a>
                 </div>
                 <div class="text-right">
                                     <span class="block text-slate-200 font-bold text-lg"><?= htmlspecialchars($lastSession['info']['boss']) ?></span>
                     <span class="text-gray-500 text-xs"><?= $lastSession['info']['created_at'] ?></span>
                 </div>
             </div>
-            
+
             <div class="mb-6">
                 <p class="text-gray-400 text-sm uppercase mb-3"><?= t('dropped_items') ?></p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -280,10 +280,10 @@ require_once 'partials/header.php';
                                 <span class="text-gray-500 w-4"><?= $row['position'] ?>.</span>
                                 <div class="flex-grow flex items-center justify-between">
                                     <div class="flex items-center gap-2">
-                                        <?php if($row['position'] == 1 && !$isBanned && !$isExcluded): ?><span class="w-2 h-2 rounded-full bg-green-500 shrink-0"></span><span class="text-white font-bold"><?= htmlspecialchars($row['nick']) ?></span>
+                                        <?php if($row['position'] == 1 && !$isBanned && !$isExcluded): ?><span class="w-2 h-2 rounded-full bg-green-500 shrink-0"></span><span class="text-slate-200 font-bold"><?= htmlspecialchars($row['nick']) ?></span>
                                         <?php else: ?><span class="w-2 h-2 rounded-full <?= $isBanned ? 'bg-indigo-900' : ($isExcluded ? 'bg-slate-900 border border-slate-700' : 'bg-slate-700') ?> shrink-0"></span><span class="<?= $isBanned ? 'text-gray-500 line-through' : ($isExcluded ? 'text-gray-600' : 'text-gray-400') ?>"><?= htmlspecialchars($row['nick']) ?></span><?php endif; ?>
                                     </div>
-                                    <?php if ($delta != 0 && !$isBanned && !$isExcluded): ?><span class="text-[10px] font-bold <?= $delta > 0 ? 'text-green-500' : 'text-slate-200' ?>"><?= $delta > 0 ? '▲' : '▼' ?> <?= abs($delta) ?></span><?php endif; ?>
+                                    <?php if ($delta != 0 && !$isBanned && !$isExcluded): ?><span class="text-[10px] font-bold <?= $delta > 0 ? 'text-green-500' : 'text-indigo-400' ?>"><?= $delta > 0 ? '▲' : '▼' ?> <?= abs($delta) ?></span><?php endif; ?>
                                 </div>
                             </li>
                             <?php endforeach; ?>
@@ -301,7 +301,7 @@ require_once 'partials/header.php';
                     <thead><tr class="table-header"><th class="p-2 w-32" onclick="sortTable(0)">Name</th><?php $col=1; foreach ($items as $item): ?><th class="p-2 text-center w-12" onclick="sortTable(<?= $col++ ?>)"><?php if($item['icon']): ?><img src="icons/<?= htmlspecialchars($item['icon']) ?>" class="w-5 h-5 mx-auto opacity-70 pointer-events-none object-contain"><?php else: ?><?= mb_substr($item['name'],0,3) ?><?php endif; ?></th><?php endforeach; ?><th class="p-2 text-right text-slate-400 w-16" onclick="sortTable(<?= $col ?>)"><?= t('total') ?></th></tr></thead>
                     <tbody>
                         <?php foreach($statsPlayers as $row): ?>
-                        <tr class="table-row hover:bg-slate-800/50"><td class="p-2 font-bold <?= $row['is_out'] ? 'text-gray-600 italic' : 'text-gray-300' ?> truncate"><?= htmlspecialchars($row['nick']) ?></td><?php foreach ($items as $item): $cnt = $row['items'][$item['id']]; ?><td class="p-2 text-center <?= $cnt > 0 ? 'text-slate-200 font-bold' : 'text-gray-700' ?>"><?= $cnt > 0 ? $cnt : '-' ?></td><?php endforeach; ?><td class="p-2 text-right font-bold text-slate-200"><?= $row['total'] ?></td></tr>
+                        <tr class="table-row hover:bg-slate-800/50"><td class="p-2 font-bold <?= $row['is_out'] ? 'text-gray-600 italic' : 'text-gray-300' ?> truncate"><?= htmlspecialchars($row['nick']) ?></td><?php foreach ($items as $item): $cnt = $row['items'][$item['id']]; ?><td class="p-2 text-center <?= $cnt > 0 ? 'text-indigo-400 font-bold' : 'text-gray-700' ?>"><?= $cnt > 0 ? $cnt : '-' ?></td><?php endforeach; ?><td class="p-2 text-right font-bold text-slate-400"><?= $row['total'] ?></td></tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
