@@ -234,11 +234,11 @@ require_once 'partials/header.php';
                         <label class="flex items-center gap-2 p-2 bg-gray-800 rounded cursor-pointer hover:bg-gray-700 border border-gray-700 hover:border-gray-500 transition"><input type="checkbox" name="present_players[]" value="<?= $p['id'] ?>" class="accent-yellow-500" <?= $isChecked ?>><span class="text-sm <?= $isBanned ? 'text-gray-500 line-through' : '' ?>"><?= htmlspecialchars($p['nick']) ?></span></label>
                         <?php endforeach; ?>
                     </div>
-                    <button type="submit" name="step_1_submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded shadow-lg"><?= t('next') ?></button></form>
+                    <button type="submit" name="step_1_submit" class="w-full bg-red-700 hover:bg-red-600 text-white font-bold py-3 rounded shadow-lg"><?= t('next') ?></button></form>
                 <?php endif; ?>
                 <?php if ($step === 2): ?>
                     <h2 class="text-xl font-bold text-yellow-500 mb-4"><?= t('step_2') ?></h2>
-                    <form method="POST"><div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6 max-h-[60vh] overflow-y-auto pr-2"><?php foreach($items as $it): $qty = $savedDrops[$it['id']] ?? 0; ?><div class="flex items-center justify-between bg-gray-900 p-2 rounded border border-gray-700"><div class="flex items-center gap-2"><?php if($it['icon']): ?><img src="icons/<?= $it['icon'] ?>" class="w-8 h-8 object-contain shrink-0"><?php endif; ?><span class="font-bold text-sm text-gray-200"><?= htmlspecialchars($it['name']) ?></span></div><input type="number" name="drops[<?= $it['id'] ?>]" min="0" value="<?= $qty ?>" class="w-16 bg-black border border-gray-600 rounded p-1 text-center text-white focus:border-yellow-500"></div><?php endforeach; ?></div><div class="flex gap-4"><button type="submit" name="go_back" class="w-1/3 bg-gray-700 text-gray-300 font-bold py-3 rounded"><?= t('prev') ?></button><button type="submit" name="step_2_submit" class="w-2/3 bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded shadow-lg"><?= t('next') ?></button></div></form>
+                    <form method="POST"><div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6 max-h-[60vh] overflow-y-auto pr-2"><?php foreach($items as $it): $qty = $savedDrops[$it['id']] ?? 0; ?><div class="flex items-center justify-between bg-gray-900 p-2 rounded border border-gray-700"><div class="flex items-center gap-2"><?php if($it['icon']): ?><img src="icons/<?= $it['icon'] ?>" class="w-8 h-8 object-contain shrink-0"><?php endif; ?><span class="font-bold text-sm text-gray-200"><?= htmlspecialchars($it['name']) ?></span></div><input type="number" name="drops[<?= $it['id'] ?>]" min="0" value="<?= $qty ?>" class="w-16 bg-black border border-gray-600 rounded p-1 text-center text-white focus:border-yellow-500"></div><?php endforeach; ?></div><div class="flex gap-4"><button type="submit" name="go_back" class="w-1/3 bg-gray-700 text-gray-300 font-bold py-3 rounded"><?= t('prev') ?></button><button type="submit" name="step_2_submit" class="w-2/3 bg-red-700 hover:bg-red-600 text-white font-bold py-3 rounded shadow-lg"><?= t('next') ?></button></div></form>
                 <?php endif; ?>
                 <?php if ($step === 3): ?>
                     <h2 class="text-xl font-bold text-yellow-500 mb-4"><?= t('step_3') ?></h2>
@@ -337,7 +337,7 @@ require_once 'partials/header.php';
                     <h2 class="text-lg font-bold text-yellow-500 mb-4">Gracze</h2>
                     <form method="POST" class="flex flex-col sm:flex-row gap-2 mb-6">
                         <input type="text" name="new_player_nick" placeholder="Nowy Nick" class="flex-grow bg-gray-900 border border-gray-600 rounded p-2 text-white focus:border-yellow-500">
-                        <button type="submit" name="add_player" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded font-bold">Dodaj</button>
+                        <button type="submit" name="add_player" class="w-full sm:w-auto bg-red-700 hover:bg-red-600 text-white px-4 py-2 rounded font-bold">Dodaj</button>
                     </form>
                     <div class="overflow-y-auto max-h-[600px] border-t border-gray-700 pt-2">
                         <table class="w-full text-sm text-left text-gray-400">
@@ -373,7 +373,7 @@ require_once 'partials/header.php';
                     <form method="POST" class="space-y-2 mb-6">
                         <input type="text" name="new_item_name" placeholder="Nazwa" class="w-full bg-gray-900 border border-gray-600 rounded p-2 text-white focus:border-yellow-500">
                         <input type="text" name="new_item_icon" placeholder="Ikona (np. sword.png)" class="w-full bg-gray-900 border border-gray-600 rounded p-2 text-white focus:border-yellow-500">
-                        <button type="submit" name="add_item" class="w-full bg-blue-600 hover:bg-blue-500 text-white py-2 rounded font-bold">Dodaj</button>
+                        <button type="submit" name="add_item" class="w-full bg-red-700 hover:bg-red-600 text-white py-2 rounded font-bold">Dodaj</button>
                     </form>
                     
                     <div class="overflow-y-auto flex-grow max-h-[500px] border-t border-gray-700 pt-2">
@@ -469,7 +469,7 @@ require_once 'partials/header.php';
                                 <td class="px-2 sm:px-6 py-4 text-white"><?= htmlspecialchars($s['boss']) ?></td>
                                 <td class="px-2 sm:px-6 py-4"><?= htmlspecialchars($s['created_at']) ?></td>
                                 <td class="px-2 sm:px-6 py-4 text-right flex justify-end gap-2 items-center">
-                                    <a href="<?= $self ?>?view=details&id=<?= $s['id'] ?>" class="text-blue-400 hover:text-blue-300 font-bold px-1" title="Podgląd">👁️</a>
+                                    <a href="<?= $self ?>?view=details&id=<?= $s['id'] ?>" class="text-red-500 hover:text-red-400 font-bold px-1" title="Podgląd">👁️</a>
                                     <a href="<?= $self ?>?view=edit&id=<?= $s['id'] ?>" class="text-yellow-500 hover:text-yellow-300 font-bold px-1" title="Edycja">✏️</a>
                                     <button type="button" onclick='copySessionLoot(this, <?= htmlspecialchars(json_encode($copyText), ENT_QUOTES) ?>)' class="text-indigo-400 hover:text-indigo-300 font-bold px-1" title="Kopiuj drop">📋</button>
                                     <form method="POST" onsubmit="return confirm('<?= t('confirm_delete') ?>')">
@@ -522,7 +522,7 @@ require_once 'partials/header.php';
                     <div class="mb-6"><label class="text-gray-400 text-xs uppercase font-bold">Boss</label><input type="text" name="boss_name" value="<?= htmlspecialchars($sess['boss']) ?>" class="w-full bg-gray-900 border border-gray-600 rounded p-2 mt-1 text-white focus:border-yellow-500"></div>
                     <div class="mb-6"><label class="text-gray-400 text-xs uppercase font-bold mb-2 block">Obecność</label><div class="grid grid-cols-2 md:grid-cols-4 gap-2 max-h-60 overflow-y-auto bg-gray-900/50 p-2 rounded border border-gray-700"><?php foreach($allPlayers as $p): $chk = in_array($p['id'], $presIds)?'checked':''; ?><label class="flex items-center gap-2 p-1 hover:bg-gray-700 rounded cursor-pointer"><input type="checkbox" name="present_players[]" value="<?= $p['id'] ?>" class="accent-yellow-500" <?= $chk ?>><span class="text-sm text-gray-300"><?= htmlspecialchars($p['nick']) ?></span></label><?php endforeach; ?></div></div>
                     <?php if(!empty($loots)): ?><div class="mb-6"><label class="text-gray-400 text-xs uppercase font-bold mb-2 block">Łupy</label><div class="space-y-3"><?php foreach($loots as $l): ?><div class="flex items-center gap-4 bg-gray-900 p-2 rounded border border-gray-700"><div class="flex items-center gap-2 w-1/3"><?php if($l['icon']): ?><img src="icons/<?= $l['icon'] ?>" class="w-8 h-8 object-contain shrink-0"><?php endif; ?><span class="font-bold text-yellow-100 text-sm"><?= htmlspecialchars($l['name']) ?></span></div><select name="loot_winners[<?= $l['loot_id'] ?>]" class="w-2/3 bg-gray-800 text-white border border-gray-600 rounded p-1 text-sm focus:border-yellow-500"><option value="trash">--- Trash ---</option><?php foreach($allPlayers as $p): ?><option value="<?= $p['id'] ?>" <?= $p['id']==$l['winner_player_id']?'selected':'' ?>><?= htmlspecialchars($p['nick']) ?></option><?php endforeach; ?></select></div><?php endforeach; ?></div></div><?php endif; ?>
-                    <div class="flex justify-end gap-4"><button type="submit" name="edit_session_submit" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-6 rounded shadow-lg">Zapisz</button></div>
+                    <div class="flex justify-end gap-4"><button type="submit" name="edit_session_submit" class="bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-6 rounded shadow-lg">Zapisz</button></div>
                 </form>
             </div>
             <?php endif; 
@@ -670,7 +670,7 @@ function showToast() {
     if (!toast) {
         toast = document.createElement('div');
         toast.id = 'toast';
-        toast.innerText = '✅ IRON LEGION auuuu';
+        toast.innerText = '✅ DEMONS auuuu';
         toast.style.position = 'fixed';
         toast.style.bottom = '20px';
         toast.style.left = '50%';

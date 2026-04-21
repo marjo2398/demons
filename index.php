@@ -215,7 +215,7 @@ require_once 'partials/header.php';
             <!-- PRZYCISK CZATU - Z LICZNIKIEM (POPRAWIONY LINK) -->
             <div class="flex justify-center mb-8 relative">
                 <a href="ironlegionchat.php" class="inline-block bg-gray-700 hover:bg-gray-600 transition-all transform hover:scale-102 border-2 border-red-600 rounded-xl px-10 py-3 shadow-lg relative">
-                    <span class="text-white text-1xl uppercase tracking-[0.15em] font-medium">IRON LEGION CHAT</span>
+                    <span class="text-white text-1xl uppercase tracking-[0.15em] font-medium">DEMONS CHAT</span>
                     <?php if($chatNotify > 0): ?>
                         <div class="absolute -top-3 -right-3 bg-red-600 text-white text-xs font-bold w-8 h-8 flex items-center justify-center rounded-full border-2 border-gray-900 notify-badge z-10">
                             <?= $chatNotify > 99 ? '99+' : $chatNotify ?>
