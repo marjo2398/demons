@@ -44,12 +44,12 @@ if (!isset($_SESSION['is_host']) || $_SESSION['is_host'] !== true) {
     $bodyClass = 'min-h-screen flex items-center justify-center p-4';
     require_once 'partials/header.php';
     ?>
-    <div class="bg-gray-800 border border-gray-700 p-8 rounded-lg shadow-2xl max-w-sm w-full">
-        <h1 class="text-2xl font-bold text-yellow-500 mb-6 text-center"><?= t('login_title') ?></h1>
+    <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-lg shadow-2xl max-w-sm w-full">
+        <h1 class="text-2xl font-bold text-red-500 mb-6 text-center"><?= t('login_title') ?></h1>
         <?php if($error): ?><div class="bg-red-900/50 text-red-200 p-3 text-sm rounded mb-4 text-center border border-red-900 font-bold">⚠️ <?= $error ?></div><?php endif; ?>
         <form method="POST">
-            <input type="password" name="login_token" placeholder="<?= t('token') ?>" class="w-full bg-gray-900 border border-gray-600 rounded p-2 text-white mb-6 focus:border-yellow-500" autofocus>
-            <button type="submit" class="w-full bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 rounded"><?= t('enter') ?></button>
+            <input type="password" name="login_token" placeholder="<?= t('token') ?>" class="w-full bg-zinc-950 border border-zinc-700 rounded p-2 text-white mb-6 focus:border-red-600" autofocus>
+            <button type="submit" class="w-full bg-red-700 hover:bg-red-600 text-white font-bold py-3 rounded"><?= t('enter') ?></button>
         </form>
         <a href="index.php" class="block text-center text-gray-500 text-xs mt-6 hover:text-white underline"><?= t('back') ?></a>
     </div>
@@ -164,15 +164,15 @@ $bodyClass = 'min-h-screen flex flex-col';
 require_once 'partials/header.php';
 ?>
 
-    <nav class="bg-gray-800 border-b border-gray-700 p-4 sticky top-0 z-50 shadow-lg">
+    <nav class="bg-zinc-900 border-b border-zinc-800 p-4 sticky top-0 z-50 shadow-lg">
         <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <h1 class="text-xl font-bold text-yellow-500 tracking-wider flex items-center gap-2">🛡️ <?= t('host_panel') ?></h1>
+            <h1 class="text-xl font-bold text-red-500 tracking-wider flex items-center gap-2">🛡️ <?= t('host_panel') ?></h1>
             <div class="flex flex-wrap gap-2 text-sm items-center justify-center">
-                <a href="<?= $self ?>?view=dashboard" class="px-3 py-1 rounded hover:bg-gray-700 <?= $view=='dashboard'?'bg-gray-700 text-white font-bold':'text-gray-400' ?>"><?= t('dashboard') ?></a>
-                <a href="<?= $self ?>?view=history" class="px-3 py-1 rounded hover:bg-gray-700 <?= in_array($view,['history','details','edit'])?'bg-gray-700 text-white font-bold':'text-gray-400' ?>"><?= t('manage_sessions') ?></a>
-                <a href="<?= $self ?>?view=database" class="px-3 py-1 rounded hover:bg-gray-700 <?= $view=='database'?'bg-gray-700 text-white font-bold':'text-gray-400' ?>"><?= t('add_data') ?></a>
+                <a href="<?= $self ?>?view=dashboard" class="px-3 py-1 rounded hover:bg-zinc-800 <?= $view=='dashboard'?'bg-zinc-800 text-white font-bold':'text-gray-400' ?>"><?= t('dashboard') ?></a>
+                <a href="<?= $self ?>?view=history" class="px-3 py-1 rounded hover:bg-zinc-800 <?= in_array($view,['history','details','edit'])?'bg-zinc-800 text-white font-bold':'text-gray-400' ?>"><?= t('manage_sessions') ?></a>
+                <a href="<?= $self ?>?view=database" class="px-3 py-1 rounded hover:bg-zinc-800 <?= $view=='database'?'bg-zinc-800 text-white font-bold':'text-gray-400' ?>"><?= t('add_data') ?></a>
                 <span class="hidden md:inline text-gray-600 mx-2">|</span>
-                <a href="index.php" class="px-3 py-1 rounded border border-gray-600 hover:bg-gray-700 text-yellow-500 font-bold transition"><?= t('back') ?></a>
+                <a href="index.php" class="px-3 py-1 rounded border border-zinc-700 hover:bg-zinc-800 text-red-500 font-bold transition"><?= t('back') ?></a>
                 <a href="<?= $self ?>?logout=1" class="px-3 py-1 rounded border border-red-900/50 bg-red-900/10 hover:bg-red-900/40 text-red-400 font-bold transition ml-2" title="Wyloguj">🔓</a>
             </div>
         </div>
@@ -191,17 +191,17 @@ require_once 'partials/header.php';
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- LEWO: START -->
                 <div class="space-y-6">
-                    <div class="bg-gray-800 border border-gray-700 p-8 rounded-lg shadow-lg flex flex-col items-center text-center hover:border-yellow-600/50 transition duration-300 group h-auto">
+                    <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-lg shadow-lg flex flex-col items-center text-center hover:border-red-700/50 transition duration-300 group h-auto">
                         <div class="text-6xl mb-4 group-hover:scale-110 transition duration-300">⚔️</div>
-                        <h2 class="text-2xl font-bold text-yellow-500 mb-2">Start Battle</h2>
-                        <a href="<?= $self ?>?view=wizard" class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-8 rounded shadow-lg transition transform hover:scale-105"><?= t('start_kundun') ?></a>
+                        <h2 class="text-2xl font-bold text-red-500 mb-2">Start Battle</h2>
+                        <a href="<?= $self ?>?view=wizard" class="bg-red-700 hover:bg-red-600 text-white font-bold py-3 px-8 rounded shadow-lg transition transform hover:scale-105"><?= t('start_kundun') ?></a>
                     </div>
                     
                     
                 </div>
 
                 <!-- PRAWO: NOTATNIK -->
-                <div class="bg-gray-800 border border-indigo-900 p-6 rounded-lg shadow-lg">
+                <div class="bg-zinc-900 border border-indigo-900 p-6 rounded-lg shadow-lg">
     <div class="flex justify-between items-center mb-2">
         <h2 class="text-lg font-bold text-indigo-400"> NOTES</h2>
         <span class="text-xs text-gray-500 uppercase">Prywatne</span>
@@ -210,7 +210,7 @@ require_once 'partials/header.php';
         <textarea 
             id="admin_note"
             name="admin_note_content" 
-            class="w-full bg-gray-900 border border-gray-600 rounded p-3 text-sm text-indigo-200 font-mono mb-4 focus:ring-1 focus:ring-indigo-500 resize-none overflow-hidden"
+            class="w-full bg-zinc-950 border border-zinc-700 rounded p-3 text-sm text-indigo-200 font-mono mb-4 focus:ring-1 focus:ring-indigo-500 resize-none overflow-hidden"
             style="min-height: 150px;"
         ><?= htmlspecialchars($adminNote) ?></textarea>
         <button type="submit" name="update_admin_note" class="w-full bg-indigo-700 hover:bg-indigo-600 text-white py-2 rounded font-bold shadow transition duration-200">Zapisz Notatkę</button>
@@ -221,27 +221,27 @@ require_once 'partials/header.php';
         
         case 'wizard': 
             $step = $_SESSION['host_step'] ?? 1; $savedBoss = $_SESSION['new_session']['boss'] ?? 'Kundun'; $savedPresent = $_SESSION['new_session']['present'] ?? []; $savedDrops = array_count_values($_SESSION['new_session']['drops'] ?? []); ?>
-            <div class="max-w-4xl mx-auto bg-gray-800 border border-gray-700 p-6 rounded-lg shadow-xl relative">
+            <div class="max-w-4xl mx-auto bg-zinc-900 border border-zinc-800 p-6 rounded-lg shadow-xl relative">
                 <form method="POST" class="absolute top-4 right-4"><button type="submit" name="cancel_session" class="text-xs text-red-500 bg-red-900/10 hover:bg-red-900/30 px-3 py-1 rounded font-bold">✖ <?= t('cancel') ?></button></form>
                 <?php if ($step === 1): ?>
-                    <h2 class="text-xl font-bold text-yellow-500 mb-4"><?= t('step_1') ?></h2>
-                    <form method="POST"><div class="mb-4"><label class="text-gray-400 text-xs font-bold uppercase">Boss</label><input type="text" name="boss_name" value="<?= htmlspecialchars($savedBoss) ?>" class="w-full bg-gray-900 border border-gray-600 rounded p-2 mt-1 text-white focus:border-yellow-500"></div>
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-2 mb-6 max-h-96 overflow-y-auto bg-gray-900/50 p-2 rounded border border-gray-700">
+                    <h2 class="text-xl font-bold text-red-500 mb-4"><?= t('step_1') ?></h2>
+                    <form method="POST"><div class="mb-4"><label class="text-gray-400 text-xs font-bold uppercase">Boss</label><input type="text" name="boss_name" value="<?= htmlspecialchars($savedBoss) ?>" class="w-full bg-zinc-950 border border-zinc-700 rounded p-2 mt-1 text-white focus:border-red-600"></div>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-2 mb-6 max-h-96 overflow-y-auto bg-zinc-950/50 p-2 rounded border border-zinc-800">
                         <?php foreach($players as $p): 
                             if ($p['is_out']) continue; 
                             $isChecked = in_array($p['id'], $savedPresent) ? 'checked' : ''; $isBanned = $p['is_loot_banned']; 
                         ?>
-                        <label class="flex items-center gap-2 p-2 bg-gray-800 rounded cursor-pointer hover:bg-gray-700 border border-gray-700 hover:border-gray-500 transition"><input type="checkbox" name="present_players[]" value="<?= $p['id'] ?>" class="accent-yellow-500" <?= $isChecked ?>><span class="text-sm <?= $isBanned ? 'text-gray-500 line-through' : '' ?>"><?= htmlspecialchars($p['nick']) ?></span></label>
+                        <label class="flex items-center gap-2 p-2 bg-zinc-900 rounded cursor-pointer hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-600 transition"><input type="checkbox" name="present_players[]" value="<?= $p['id'] ?>" class="accent-red-600" <?= $isChecked ?>><span class="text-sm <?= $isBanned ? 'text-gray-500 line-through' : '' ?>"><?= htmlspecialchars($p['nick']) ?></span></label>
                         <?php endforeach; ?>
                     </div>
                     <button type="submit" name="step_1_submit" class="w-full bg-red-700 hover:bg-red-600 text-white font-bold py-3 rounded shadow-lg"><?= t('next') ?></button></form>
                 <?php endif; ?>
                 <?php if ($step === 2): ?>
-                    <h2 class="text-xl font-bold text-yellow-500 mb-4"><?= t('step_2') ?></h2>
-                    <form method="POST"><div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6 max-h-[60vh] overflow-y-auto pr-2"><?php foreach($items as $it): $qty = $savedDrops[$it['id']] ?? 0; ?><div class="flex items-center justify-between bg-gray-900 p-2 rounded border border-gray-700"><div class="flex items-center gap-2"><?php if($it['icon']): ?><img src="icons/<?= $it['icon'] ?>" class="w-8 h-8 object-contain shrink-0"><?php endif; ?><span class="font-bold text-sm text-gray-200"><?= htmlspecialchars($it['name']) ?></span></div><input type="number" name="drops[<?= $it['id'] ?>]" min="0" value="<?= $qty ?>" class="w-16 bg-black border border-gray-600 rounded p-1 text-center text-white focus:border-yellow-500"></div><?php endforeach; ?></div><div class="flex gap-4"><button type="submit" name="go_back" class="w-1/3 bg-gray-700 text-gray-300 font-bold py-3 rounded"><?= t('prev') ?></button><button type="submit" name="step_2_submit" class="w-2/3 bg-red-700 hover:bg-red-600 text-white font-bold py-3 rounded shadow-lg"><?= t('next') ?></button></div></form>
+                    <h2 class="text-xl font-bold text-red-500 mb-4"><?= t('step_2') ?></h2>
+                    <form method="POST"><div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6 max-h-[60vh] overflow-y-auto pr-2"><?php foreach($items as $it): $qty = $savedDrops[$it['id']] ?? 0; ?><div class="flex items-center justify-between bg-zinc-950 p-2 rounded border border-zinc-800"><div class="flex items-center gap-2"><?php if($it['icon']): ?><img src="icons/<?= $it['icon'] ?>" class="w-8 h-8 object-contain shrink-0"><?php endif; ?><span class="font-bold text-sm text-gray-200"><?= htmlspecialchars($it['name']) ?></span></div><input type="number" name="drops[<?= $it['id'] ?>]" min="0" value="<?= $qty ?>" class="w-16 bg-black border border-zinc-700 rounded p-1 text-center text-white focus:border-red-600"></div><?php endforeach; ?></div><div class="flex gap-4"><button type="submit" name="go_back" class="w-1/3 bg-zinc-800 text-gray-300 font-bold py-3 rounded"><?= t('prev') ?></button><button type="submit" name="step_2_submit" class="w-2/3 bg-red-700 hover:bg-red-600 text-white font-bold py-3 rounded shadow-lg"><?= t('next') ?></button></div></form>
                 <?php endif; ?>
                 <?php if ($step === 3): ?>
-                    <h2 class="text-xl font-bold text-yellow-500 mb-4"><?= t('step_3') ?></h2>
+                    <h2 class="text-xl font-bold text-red-500 mb-4"><?= t('step_3') ?></h2>
                     <form method="POST">
                         <?php if(empty($_SESSION['new_session']['drops'])): ?>
                             <div class="text-center text-gray-500 py-10"><?= t('no_items') ?></div>
@@ -282,20 +282,20 @@ require_once 'partials/header.php';
                                     } 
                                 } 
                             ?>
-                            <div class="bg-gray-900 p-3 rounded border border-gray-600 flex flex-col md:flex-row gap-4 loot-item-row">
+                            <div class="bg-zinc-950 p-3 rounded border border-zinc-700 flex flex-col md:flex-row gap-4 loot-item-row">
                                 <div class="w-full md:w-1/2">
                                     <div class="flex items-center gap-3 mb-2">
-                                        <?php if($it['icon']): ?><img src="icons/<?= $it['icon'] ?>" class="w-10 h-10 border border-gray-600 bg-black/50 object-contain shrink-0"><?php endif; ?>
-                                        <span class="font-bold text-yellow-100 item-name"><?= htmlspecialchars($it['name']) ?></span>
+                                        <?php if($it['icon']): ?><img src="icons/<?= $it['icon'] ?>" class="w-10 h-10 border border-zinc-700 bg-black/50 object-contain shrink-0"><?php endif; ?>
+                                        <span class="font-bold text-red-100 item-name"><?= htmlspecialchars($it['name']) ?></span>
                                     </div>
-                                    <select name="winners[<?= $idx ?>]" class="w-full bg-gray-800 text-white border <?= $suggestedWinnerId?'border-green-600':'border-gray-500' ?> rounded p-2 focus:border-yellow-500">
+                                    <select name="winners[<?= $idx ?>]" class="w-full bg-zinc-900 text-white border <?= $suggestedWinnerId?'border-green-600':'border-zinc-600' ?> rounded p-2 focus:border-red-600">
                                         <option value="trash">--- Trash ---</option>
                                         <?php foreach($selectablePlayers as $pid=>$nick): ?>
                                             <option value="<?= $pid ?>" <?= $pid==$suggestedWinnerId?'selected':'' ?>><?= htmlspecialchars($nick) ?> <?= $pid==$suggestedWinnerId?'(auto)':'' ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
-                                <div class="w-full md:w-1/2 bg-black/30 p-2 rounded border border-gray-700/50 text-xs">
+                                <div class="w-full md:w-1/2 bg-black/30 p-2 rounded border border-zinc-800/50 text-xs">
                                     <strong class="text-gray-500 uppercase block mb-1">Queue Preview:</strong>
                                     <div class="space-y-1 max-h-24 overflow-y-auto pr-1">
                                         <?php foreach($queueTop as $qp): $isPresent=in_array($qp['player_id'],$presentIds); $isBan = $qp['is_loot_banned']; $isExcl = $qp['is_excluded']; ?>
@@ -315,7 +315,7 @@ require_once 'partials/header.php';
                         <?php endif; ?>
                         
                         <div class="flex gap-2">
-                            <button type="submit" name="go_back" class="w-1/4 bg-gray-700 text-gray-300 font-bold py-3 rounded"><?= t('prev') ?></button>
+                            <button type="submit" name="go_back" class="w-1/4 bg-zinc-800 text-gray-300 font-bold py-3 rounded"><?= t('prev') ?></button>
                             <button type="button" id="copy-btn" onclick="copyLootToClipboard()" class="w-1/4 bg-red-600 hover:bg-red-500 text-white font-bold py-3 rounded flex items-center justify-center gap-2 group transition">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:scale-110 transition" viewBox="0 0 20 20" fill="currentColor">
                                     <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
@@ -333,27 +333,27 @@ require_once 'partials/header.php';
         case 'database': ?>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <!-- LEWO: GRACZE -->
-                <div class="bg-gray-800 border border-gray-700 p-6 rounded-lg shadow-lg">
-                    <h2 class="text-lg font-bold text-yellow-500 mb-4">Gracze</h2>
+                <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg shadow-lg">
+                    <h2 class="text-lg font-bold text-red-500 mb-4">Gracze</h2>
                     <form method="POST" class="flex flex-col sm:flex-row gap-2 mb-6">
-                        <input type="text" name="new_player_nick" placeholder="Nowy Nick" class="flex-grow bg-gray-900 border border-gray-600 rounded p-2 text-white focus:border-yellow-500">
+                        <input type="text" name="new_player_nick" placeholder="Nowy Nick" class="flex-grow bg-zinc-950 border border-zinc-700 rounded p-2 text-white focus:border-red-600">
                         <button type="submit" name="add_player" class="w-full sm:w-auto bg-red-700 hover:bg-red-600 text-white px-4 py-2 rounded font-bold">Dodaj</button>
                     </form>
-                    <div class="overflow-y-auto max-h-[600px] border-t border-gray-700 pt-2">
+                    <div class="overflow-y-auto max-h-[600px] border-t border-zinc-800 pt-2">
                         <table class="w-full text-sm text-left text-gray-400">
-                            <thead class="text-xs uppercase bg-gray-900"><tr><th class="py-2 px-2">Nick</th><th class="py-2 px-2 text-right">Akcje</th></tr></thead>
-                            <tbody class="divide-y divide-gray-700">
+                            <thead class="text-xs uppercase bg-zinc-950"><tr><th class="py-2 px-2">Nick</th><th class="py-2 px-2 text-right">Akcje</th></tr></thead>
+                            <tbody class="divide-y divide-zinc-800">
                             <?php foreach($players as $p): ?>
                             <tr>
                                 <td class="py-2 px-2 <?= $p['is_out'] ? 'text-gray-600 italic' : ($p['is_loot_banned'] ? 'text-gray-600 line-through' : 'text-gray-300') ?>"><?= htmlspecialchars($p['nick']) ?></td>
                                 <td class="py-2 px-2 text-right flex justify-end gap-1 items-center">
                                     <form method="POST">
                                         <input type="hidden" name="player_id" value="<?= $p['id'] ?>"><input type="hidden" name="ban_status" value="<?= $p['is_loot_banned'] ?>">
-                                        <button type="submit" name="toggle_ban" class="text-[10px] font-bold px-2 py-1 rounded border <?= $p['is_loot_banned'] ? 'border-red-500 text-red-500' : 'border-gray-600 text-gray-500 hover:text-white' ?>" title="Loot Ban">BAN</button>
+                                        <button type="submit" name="toggle_ban" class="text-[10px] font-bold px-2 py-1 rounded border <?= $p['is_loot_banned'] ? 'border-red-500 text-red-500' : 'border-zinc-700 text-gray-500 hover:text-white' ?>" title="Loot Ban">BAN</button>
                                     </form>
                                     <form method="POST">
                                         <input type="hidden" name="player_id" value="<?= $p['id'] ?>"><input type="hidden" name="out_status" value="<?= $p['is_out'] ?>">
-                                        <button type="submit" name="toggle_out" class="text-[10px] font-bold px-2 py-1 rounded border <?= $p['is_out'] ? 'border-black bg-black text-gray-500' : 'border-gray-600 text-gray-500 hover:text-white' ?>" title="Out of Guild">OUT</button>
+                                        <button type="submit" name="toggle_out" class="text-[10px] font-bold px-2 py-1 rounded border <?= $p['is_out'] ? 'border-black bg-black text-gray-500' : 'border-zinc-700 text-gray-500 hover:text-white' ?>" title="Out of Guild">OUT</button>
                                     </form>
                                     <form method="POST" onsubmit="return confirm('<?= t('confirm_del_player') ?>')">
                                         <input type="hidden" name="delete_player_id" value="<?= $p['id'] ?>">
@@ -368,24 +368,24 @@ require_once 'partials/header.php';
                 </div>
 
                 <!-- PRAWO: PRZEDMIOTY -->
-                <div class="bg-gray-800 border border-gray-700 p-6 rounded-lg shadow-lg flex flex-col h-full">
-                    <h2 class="text-lg font-bold text-yellow-500 mb-4">Przedmioty</h2>
+                <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg shadow-lg flex flex-col h-full">
+                    <h2 class="text-lg font-bold text-red-500 mb-4">Przedmioty</h2>
                     <form method="POST" class="space-y-2 mb-6">
-                        <input type="text" name="new_item_name" placeholder="Nazwa" class="w-full bg-gray-900 border border-gray-600 rounded p-2 text-white focus:border-yellow-500">
-                        <input type="text" name="new_item_icon" placeholder="Ikona (np. sword.png)" class="w-full bg-gray-900 border border-gray-600 rounded p-2 text-white focus:border-yellow-500">
+                        <input type="text" name="new_item_name" placeholder="Nazwa" class="w-full bg-zinc-950 border border-zinc-700 rounded p-2 text-white focus:border-red-600">
+                        <input type="text" name="new_item_icon" placeholder="Ikona (np. sword.png)" class="w-full bg-zinc-950 border border-zinc-700 rounded p-2 text-white focus:border-red-600">
                         <button type="submit" name="add_item" class="w-full bg-red-700 hover:bg-red-600 text-white py-2 rounded font-bold">Dodaj</button>
                     </form>
                     
-                    <div class="overflow-y-auto flex-grow max-h-[500px] border-t border-gray-700 pt-2">
+                    <div class="overflow-y-auto flex-grow max-h-[500px] border-t border-zinc-800 pt-2">
                         <table class="w-full text-sm text-left text-gray-400">
-                            <thead class="text-xs uppercase bg-gray-900"><tr><th class="py-2 px-2">Ikona</th><th class="py-2 px-2">Nazwa</th><th class="py-2 px-2 text-right">Akcje</th></tr></thead>
-                            <tbody class="divide-y divide-gray-700">
+                            <thead class="text-xs uppercase bg-zinc-950"><tr><th class="py-2 px-2">Ikona</th><th class="py-2 px-2">Nazwa</th><th class="py-2 px-2 text-right">Akcje</th></tr></thead>
+                            <tbody class="divide-y divide-zinc-800">
                             <?php foreach($items as $i): ?>
                             <tr>
                                 <td class="py-2 px-2 w-10 text-center"><?= $i['icon'] ? '<img src="icons/'.$i['icon'].'" class="w-6 h-6 object-contain mx-auto">' : '' ?></td>
                                 <td class="py-2 px-2 font-bold text-gray-300"><?= htmlspecialchars($i['name']) ?></td>
                                 <td class="py-2 px-2 text-right flex justify-end gap-1 items-center">
-                                    <a href="<?= $self ?>?view=exclusions&item_id=<?= $i['id'] ?>" class="bg-gray-700 hover:bg-gray-600 text-yellow-500 hover:text-yellow-400 text-[10px] font-bold px-2 py-1.5 rounded border border-gray-600" title="Zarządzaj Wykluczeniami">⛔</a>
+                                    <a href="<?= $self ?>?view=exclusions&item_id=<?= $i['id'] ?>" class="bg-zinc-800 hover:bg-zinc-700 text-red-500 hover:text-red-400 text-[10px] font-bold px-2 py-1.5 rounded border border-zinc-700" title="Zarządzaj Wykluczeniami">⛔</a>
                                     <form method="POST" onsubmit="return confirm('<?= t('confirm_del_item') ?>')">
                                         <input type="hidden" name="delete_item_id" value="<?= $i['id'] ?>">
                                         <button type="submit" class="bg-red-900/20 hover:bg-red-900 text-red-500 hover:text-white text-[10px] font-bold px-2 py-1 rounded border border-red-900">DEL</button>
@@ -400,23 +400,23 @@ require_once 'partials/header.php';
             </div>
 
             <!-- SEKCJA: UŻYTKOWNICY CZATU (NOWA) -->
-            <div class="col-span-1 lg:col-span-2 bg-gray-800 border border-gray-700 p-6 rounded-lg shadow-lg mt-6">
-                <h2 class="text-lg font-bold text-yellow-500 mb-4">Użytkownicy Czatu</h2>
-                <div class="overflow-y-auto max-h-[300px] border-t border-gray-700 pt-2">
+            <div class="col-span-1 lg:col-span-2 bg-zinc-900 border border-zinc-800 p-6 rounded-lg shadow-lg mt-6">
+                <h2 class="text-lg font-bold text-red-500 mb-4">Użytkownicy Czatu</h2>
+                <div class="overflow-y-auto max-h-[300px] border-t border-zinc-800 pt-2">
                     <?php if(empty($chatUsers)): ?>
                         <p class="text-gray-500 italic text-sm text-center py-4">Brak zarejestrowanych użytkowników czatu.</p>
                     <?php else: ?>
                         <table class="w-full text-sm text-left text-gray-400">
-                            <thead class="text-xs uppercase bg-gray-900">
+                            <thead class="text-xs uppercase bg-zinc-950">
                                 <tr>
                                     <th class="py-2 px-4">ID</th>
                                     <th class="py-2 px-4">Nick</th>
                                     <th class="py-2 px-4 text-right">Data Rejestracji</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-gray-700">
+                            <tbody class="divide-y divide-zinc-800">
                                 <?php foreach($chatUsers as $u): ?>
-                                <tr class="hover:bg-gray-700/30">
+                                <tr class="hover:bg-zinc-800/30">
                                     <td class="py-2 px-4 font-mono text-xs text-gray-500">#<?= $u['id'] ?></td>
                                     <td class="py-2 px-4 font-bold text-white"><?= htmlspecialchars($u['username']) ?></td>
                                     <td class="py-2 px-4 text-right text-xs text-gray-400"><?= $u['created_at'] ?></td>
@@ -448,12 +448,12 @@ require_once 'partials/header.php';
             $stmt->execute();
             $sessions = $stmt->fetchAll();
             ?>
-            <div class="bg-gray-800 border border-gray-700 rounded-lg shadow-lg">
-                <div class="p-4 border-b border-gray-700"><h2 class="text-2xl font-bold text-yellow-500 flex items-center gap-2">📜 Historia Sesji</h2></div>
+            <div class="bg-zinc-900 border border-zinc-800 rounded-lg shadow-lg">
+                <div class="p-4 border-b border-zinc-800"><h2 class="text-2xl font-bold text-red-500 flex items-center gap-2">📜 Historia Sesji</h2></div>
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-400">
-                        <thead class="text-xs text-gray-500 uppercase bg-gray-900 border-b border-gray-700"><tr><th class="px-2 sm:px-6 py-3">Sesja</th><th class="px-2 sm:px-6 py-3">Boss</th><th class="px-2 sm:px-6 py-3">Data</th><th class="px-2 sm:px-6 py-3 text-right">Akcje</th></tr></thead>
-                        <tbody class="divide-y divide-gray-700">
+                        <thead class="text-xs text-gray-500 uppercase bg-zinc-950 border-b border-zinc-800"><tr><th class="px-2 sm:px-6 py-3">Sesja</th><th class="px-2 sm:px-6 py-3">Boss</th><th class="px-2 sm:px-6 py-3">Data</th><th class="px-2 sm:px-6 py-3 text-right">Akcje</th></tr></thead>
+                        <tbody class="divide-y divide-zinc-800">
                             <?php foreach($sessions as $s): 
                                 $lootStmt = $pdo->prepare("SELECT i.name, p.nick FROM session_loot sl JOIN items i ON i.id = sl.item_id LEFT JOIN players p ON p.id = sl.winner_player_id WHERE sl.session_id = ?");
                                 $lootStmt->execute([$s['id']]);
@@ -464,13 +464,13 @@ require_once 'partials/header.php';
                                     $copyText .= $lfc['name'] . " - " . $winner . "\n\n";
                                 }
                             ?>
-                            <tr class="hover:bg-gray-700/50">
-                                <td class="px-2 sm:px-6 py-4 font-bold text-yellow-500"><?= htmlspecialchars($s['name']) ?></td>
+                            <tr class="hover:bg-zinc-800/50">
+                                <td class="px-2 sm:px-6 py-4 font-bold text-red-500"><?= htmlspecialchars($s['name']) ?></td>
                                 <td class="px-2 sm:px-6 py-4 text-white"><?= htmlspecialchars($s['boss']) ?></td>
                                 <td class="px-2 sm:px-6 py-4"><?= htmlspecialchars($s['created_at']) ?></td>
                                 <td class="px-2 sm:px-6 py-4 text-right flex justify-end gap-2 items-center">
                                     <a href="<?= $self ?>?view=details&id=<?= $s['id'] ?>" class="text-red-500 hover:text-red-400 font-bold px-1" title="Podgląd">👁️</a>
-                                    <a href="<?= $self ?>?view=edit&id=<?= $s['id'] ?>" class="text-yellow-500 hover:text-yellow-300 font-bold px-1" title="Edycja">✏️</a>
+                                    <a href="<?= $self ?>?view=edit&id=<?= $s['id'] ?>" class="text-red-500 hover:text-red-300 font-bold px-1" title="Edycja">✏️</a>
                                     <button type="button" onclick='copySessionLoot(this, <?= htmlspecialchars(json_encode($copyText), ENT_QUOTES) ?>)' class="text-indigo-400 hover:text-indigo-300 font-bold px-1" title="Kopiuj drop">📋</button>
                                     <form method="POST" onsubmit="return confirm('<?= t('confirm_delete') ?>')">
                                         <input type="hidden" name="delete_session_id" value="<?= $s['id'] ?>">
@@ -485,19 +485,19 @@ require_once 'partials/header.php';
 
                 <!-- 4. PAGINACJA -->
                 <?php if ($totalPages > 1): ?>
-                <div class="flex justify-center items-center p-4 gap-2 border-t border-gray-700">
+                <div class="flex justify-center items-center p-4 gap-2 border-t border-zinc-800">
                     <?php if ($page > 1): ?>
-                        <a href="<?= $self ?>?view=history&page=<?= $page - 1 ?>" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded transition">&laquo; Nowsze</a>
+                        <a href="<?= $self ?>?view=history&page=<?= $page - 1 ?>" class="bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded transition">&laquo; Nowsze</a>
                     <?php else: ?>
-                        <span class="bg-gray-800 text-gray-600 px-4 py-2 rounded cursor-not-allowed">&laquo; Nowsze</span>
+                        <span class="bg-zinc-900 text-gray-600 px-4 py-2 rounded cursor-not-allowed">&laquo; Nowsze</span>
                     <?php endif; ?>
 
                     <span class="text-gray-400 font-mono px-2">Strona <?= $page ?> z <?= $totalPages ?></span>
 
                     <?php if ($page < $totalPages): ?>
-                        <a href="<?= $self ?>?view=history&page=<?= $page + 1 ?>" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded transition">Starsze &raquo;</a>
+                        <a href="<?= $self ?>?view=history&page=<?= $page + 1 ?>" class="bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded transition">Starsze &raquo;</a>
                     <?php else: ?>
-                        <span class="bg-gray-800 text-gray-600 px-4 py-2 rounded cursor-not-allowed">Starsze &raquo;</span>
+                        <span class="bg-zinc-900 text-gray-600 px-4 py-2 rounded cursor-not-allowed">Starsze &raquo;</span>
                     <?php endif; ?>
                 </div>
                 <?php endif; ?>
@@ -507,21 +507,21 @@ require_once 'partials/header.php';
         case 'details': 
             if(isset($_GET['id'])): $sid=$_GET['id']; $stmt=$pdo->prepare("SELECT * FROM sessions WHERE id=?"); $stmt->execute([$sid]); $sess=$stmt->fetch(); ?>
             <?php if($sess): $sLoot=$pdo->prepare("SELECT l.*, i.name as item_name, i.icon, p.nick as winner FROM session_loot l JOIN items i ON i.id=l.item_id LEFT JOIN players p ON p.id=l.winner_player_id WHERE l.session_id=?"); $sLoot->execute([$sid]); $loots=$sLoot->fetchAll(); $sPres=$pdo->prepare("SELECT p.nick FROM session_players sp JOIN players p ON p.id=sp.player_id WHERE sp.session_id=?"); $sPres->execute([$sid]); $pres=$sPres->fetchAll(PDO::FETCH_COLUMN); ?>
-            <div class="bg-gray-800 border border-gray-700 p-6 rounded-lg shadow-lg">
-                <div class="flex justify-between items-center border-b border-gray-700 pb-4 mb-4"><h2 class="text-2xl font-bold text-yellow-500">Podgląd Sesji: <?= htmlspecialchars($sess['name']) ?></h2><a href="<?= $self ?>?view=history" class="text-gray-400 hover:text-white">← Powrót</a></div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6"><div><p class="text-gray-500 text-xs uppercase mb-1">Boss</p><p class="text-xl font-bold text-white mb-4"><?= htmlspecialchars($sess['boss']) ?></p><p class="text-gray-500 text-xs uppercase mb-2">Obecni (<?= count($pres) ?>)</p><div class="flex flex-wrap gap-2"><?php foreach($pres as $nick): ?><span class="bg-gray-900 px-2 py-1 rounded text-xs text-gray-300 border border-gray-700"><?= htmlspecialchars($nick) ?></span><?php endforeach; ?></div></div><div><p class="text-gray-500 text-xs uppercase mb-2">Łupy</p><?php if(empty($loots)): ?><p class="text-gray-500 italic">Brak łupów.</p><?php else: ?><div class="space-y-2"><?php foreach($loots as $l): ?><div class="flex items-center gap-3 bg-gray-900 p-2 rounded border border-gray-700"><?php if($l['icon']): ?><img src="icons/<?= $l['icon'] ?>" class="w-8 h-8 object-contain shrink-0"><?php endif; ?><div class="flex flex-col"><span class="text-yellow-100 text-sm font-bold"><?= htmlspecialchars($l['item_name']) ?></span><span class="text-green-500 text-xs"><?= $l['winner'] ? htmlspecialchars($l['winner']) : '---' ?></span></div></div><?php endforeach; ?></div><?php endif; ?></div></div>
+            <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg shadow-lg">
+                <div class="flex justify-between items-center border-b border-zinc-800 pb-4 mb-4"><h2 class="text-2xl font-bold text-red-500">Podgląd Sesji: <?= htmlspecialchars($sess['name']) ?></h2><a href="<?= $self ?>?view=history" class="text-gray-400 hover:text-white">← Powrót</a></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6"><div><p class="text-gray-500 text-xs uppercase mb-1">Boss</p><p class="text-xl font-bold text-white mb-4"><?= htmlspecialchars($sess['boss']) ?></p><p class="text-gray-500 text-xs uppercase mb-2">Obecni (<?= count($pres) ?>)</p><div class="flex flex-wrap gap-2"><?php foreach($pres as $nick): ?><span class="bg-zinc-950 px-2 py-1 rounded text-xs text-gray-300 border border-zinc-800"><?= htmlspecialchars($nick) ?></span><?php endforeach; ?></div></div><div><p class="text-gray-500 text-xs uppercase mb-2">Łupy</p><?php if(empty($loots)): ?><p class="text-gray-500 italic">Brak łupów.</p><?php else: ?><div class="space-y-2"><?php foreach($loots as $l): ?><div class="flex items-center gap-3 bg-zinc-950 p-2 rounded border border-zinc-800"><?php if($l['icon']): ?><img src="icons/<?= $l['icon'] ?>" class="w-8 h-8 object-contain shrink-0"><?php endif; ?><div class="flex flex-col"><span class="text-red-100 text-sm font-bold"><?= htmlspecialchars($l['item_name']) ?></span><span class="text-green-500 text-xs"><?= $l['winner'] ? htmlspecialchars($l['winner']) : '---' ?></span></div></div><?php endforeach; ?></div><?php endif; ?></div></div>
             </div>
             <?php endif; endif; 
         break; 
         
         case 'edit': 
             if(isset($_GET['id'])): $sid = $_GET['id']; $sInfo = $pdo->prepare("SELECT * FROM sessions WHERE id = ?"); $sInfo->execute([$sid]); $sess = $sInfo->fetch(); $sLoot = $pdo->prepare("SELECT l.id as loot_id, l.item_id, l.winner_player_id, i.name, i.icon FROM session_loot l JOIN items i ON i.id=l.item_id WHERE l.session_id=?"); $sLoot->execute([$sid]); $loots = $sLoot->fetchAll(); $sPresIds = $pdo->prepare("SELECT player_id FROM session_players WHERE session_id=?"); $sPresIds->execute([$sid]); $presIds = $sPresIds->fetchAll(PDO::FETCH_COLUMN); $allPlayers = $pdo->query("SELECT id, nick FROM players ORDER BY nick ASC")->fetchAll(); ?>
-            <div class="bg-gray-800 border border-gray-700 p-6 rounded-lg shadow-lg">
-                <div class="flex justify-between items-center border-b border-gray-700 pb-4 mb-4"><h2 class="text-2xl font-bold text-yellow-500">Edycja Sesji</h2><a href="<?= $self ?>?view=history" class="text-gray-400 hover:text-white">← Anuluj</a></div>
+            <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg shadow-lg">
+                <div class="flex justify-between items-center border-b border-zinc-800 pb-4 mb-4"><h2 class="text-2xl font-bold text-red-500">Edycja Sesji</h2><a href="<?= $self ?>?view=history" class="text-gray-400 hover:text-white">← Anuluj</a></div>
                 <form method="POST"><input type="hidden" name="session_id" value="<?= $sid ?>">
-                    <div class="mb-6"><label class="text-gray-400 text-xs uppercase font-bold">Boss</label><input type="text" name="boss_name" value="<?= htmlspecialchars($sess['boss']) ?>" class="w-full bg-gray-900 border border-gray-600 rounded p-2 mt-1 text-white focus:border-yellow-500"></div>
-                    <div class="mb-6"><label class="text-gray-400 text-xs uppercase font-bold mb-2 block">Obecność</label><div class="grid grid-cols-2 md:grid-cols-4 gap-2 max-h-60 overflow-y-auto bg-gray-900/50 p-2 rounded border border-gray-700"><?php foreach($allPlayers as $p): $chk = in_array($p['id'], $presIds)?'checked':''; ?><label class="flex items-center gap-2 p-1 hover:bg-gray-700 rounded cursor-pointer"><input type="checkbox" name="present_players[]" value="<?= $p['id'] ?>" class="accent-yellow-500" <?= $chk ?>><span class="text-sm text-gray-300"><?= htmlspecialchars($p['nick']) ?></span></label><?php endforeach; ?></div></div>
-                    <?php if(!empty($loots)): ?><div class="mb-6"><label class="text-gray-400 text-xs uppercase font-bold mb-2 block">Łupy</label><div class="space-y-3"><?php foreach($loots as $l): ?><div class="flex items-center gap-4 bg-gray-900 p-2 rounded border border-gray-700"><div class="flex items-center gap-2 w-1/3"><?php if($l['icon']): ?><img src="icons/<?= $l['icon'] ?>" class="w-8 h-8 object-contain shrink-0"><?php endif; ?><span class="font-bold text-yellow-100 text-sm"><?= htmlspecialchars($l['name']) ?></span></div><select name="loot_winners[<?= $l['loot_id'] ?>]" class="w-2/3 bg-gray-800 text-white border border-gray-600 rounded p-1 text-sm focus:border-yellow-500"><option value="trash">--- Trash ---</option><?php foreach($allPlayers as $p): ?><option value="<?= $p['id'] ?>" <?= $p['id']==$l['winner_player_id']?'selected':'' ?>><?= htmlspecialchars($p['nick']) ?></option><?php endforeach; ?></select></div><?php endforeach; ?></div></div><?php endif; ?>
+                    <div class="mb-6"><label class="text-gray-400 text-xs uppercase font-bold">Boss</label><input type="text" name="boss_name" value="<?= htmlspecialchars($sess['boss']) ?>" class="w-full bg-zinc-950 border border-zinc-700 rounded p-2 mt-1 text-white focus:border-red-600"></div>
+                    <div class="mb-6"><label class="text-gray-400 text-xs uppercase font-bold mb-2 block">Obecność</label><div class="grid grid-cols-2 md:grid-cols-4 gap-2 max-h-60 overflow-y-auto bg-zinc-950/50 p-2 rounded border border-zinc-800"><?php foreach($allPlayers as $p): $chk = in_array($p['id'], $presIds)?'checked':''; ?><label class="flex items-center gap-2 p-1 hover:bg-zinc-800 rounded cursor-pointer"><input type="checkbox" name="present_players[]" value="<?= $p['id'] ?>" class="accent-red-600" <?= $chk ?>><span class="text-sm text-gray-300"><?= htmlspecialchars($p['nick']) ?></span></label><?php endforeach; ?></div></div>
+                    <?php if(!empty($loots)): ?><div class="mb-6"><label class="text-gray-400 text-xs uppercase font-bold mb-2 block">Łupy</label><div class="space-y-3"><?php foreach($loots as $l): ?><div class="flex items-center gap-4 bg-zinc-950 p-2 rounded border border-zinc-800"><div class="flex items-center gap-2 w-1/3"><?php if($l['icon']): ?><img src="icons/<?= $l['icon'] ?>" class="w-8 h-8 object-contain shrink-0"><?php endif; ?><span class="font-bold text-red-100 text-sm"><?= htmlspecialchars($l['name']) ?></span></div><select name="loot_winners[<?= $l['loot_id'] ?>]" class="w-2/3 bg-zinc-900 text-white border border-zinc-700 rounded p-1 text-sm focus:border-red-600"><option value="trash">--- Trash ---</option><?php foreach($allPlayers as $p): ?><option value="<?= $p['id'] ?>" <?= $p['id']==$l['winner_player_id']?'selected':'' ?>><?= htmlspecialchars($p['nick']) ?></option><?php endforeach; ?></select></div><?php endforeach; ?></div></div><?php endif; ?>
                     <div class="flex justify-end gap-4"><button type="submit" name="edit_session_submit" class="bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-6 rounded shadow-lg">Zapisz</button></div>
                 </form>
             </div>
@@ -535,19 +535,19 @@ require_once 'partials/header.php';
             $currEx = $pdo->prepare("SELECT player_id FROM item_exclusions WHERE item_id = ?"); $currEx->execute([$iid]); $excludedMap = array_flip($currEx->fetchAll(PDO::FETCH_COLUMN));
             $allPlayers = $pdo->query("SELECT id, nick, is_out FROM players ORDER BY nick ASC")->fetchAll();
             ?>
-            <div class="max-w-4xl mx-auto bg-gray-800 border border-gray-700 p-6 rounded-lg shadow-lg">
-                <div class="flex justify-between items-center border-b border-gray-700 pb-4 mb-4"><h2 class="text-2xl font-bold text-yellow-500 flex items-center gap-2">⛔ Wykluczenia: <?= htmlspecialchars($item['name']) ?> <?php if($item['icon']): ?><img src="icons/<?= $item['icon'] ?>" class="w-8 h-8 object-contain"><?php endif; ?></h2><a href="<?= $self ?>?view=database" class="text-gray-400 hover:text-white">← Powrót</a></div>
+            <div class="max-w-4xl mx-auto bg-zinc-900 border border-zinc-800 p-6 rounded-lg shadow-lg">
+                <div class="flex justify-between items-center border-b border-zinc-800 pb-4 mb-4"><h2 class="text-2xl font-bold text-red-500 flex items-center gap-2">⛔ Wykluczenia: <?= htmlspecialchars($item['name']) ?> <?php if($item['icon']): ?><img src="icons/<?= $item['icon'] ?>" class="w-8 h-8 object-contain"><?php endif; ?></h2><a href="<?= $self ?>?view=database" class="text-gray-400 hover:text-white">← Powrót</a></div>
                 <form method="POST"><input type="hidden" name="item_id" value="<?= $iid ?>">
                     <div class="mb-6"><p class="text-gray-400 text-sm mb-2">Zaznacz graczy, którzy mają być <strong>wykluczeni</strong> z kolejki po ten przedmiot.</p>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 max-h-[60vh] overflow-y-auto bg-gray-900/50 p-2 rounded border border-gray-700">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 max-h-[60vh] overflow-y-auto bg-zinc-950/50 p-2 rounded border border-zinc-800">
                             <?php foreach($allPlayers as $p): $isEx = isset($excludedMap[$p['id']]); ?>
-                            <label class="flex items-center gap-2 p-1 hover:bg-gray-700 rounded cursor-pointer border border-transparent <?= $isEx ? 'bg-red-900/20 border-red-900/50' : '' ?>">
+                            <label class="flex items-center gap-2 p-1 hover:bg-zinc-800 rounded cursor-pointer border border-transparent <?= $isEx ? 'bg-red-900/20 border-red-900/50' : '' ?>">
                                 <input type="checkbox" name="excluded_players[]" value="<?= $p['id'] ?>" class="accent-red-500" <?= $isEx ? 'checked' : '' ?>><span class="text-sm <?= $p['is_out'] ? 'text-gray-600 italic' : ($isEx ? 'text-red-300 font-bold' : 'text-gray-300') ?>"><?= htmlspecialchars($p['nick']) ?></span>
                             </label>
                             <?php endforeach; ?>
                         </div>
                     </div>
-                    <div class="flex justify-end gap-4"><a href="<?= $self ?>?view=database" class="bg-gray-700 text-gray-300 font-bold py-2 px-6 rounded">Anuluj</a><button type="submit" name="update_exclusions_submit" class="bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-6 rounded shadow-lg">Zapisz Wykluczenia</button></div>
+                    <div class="flex justify-end gap-4"><a href="<?= $self ?>?view=database" class="bg-zinc-800 text-gray-300 font-bold py-2 px-6 rounded">Anuluj</a><button type="submit" name="update_exclusions_submit" class="bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-6 rounded shadow-lg">Zapisz Wykluczenia</button></div>
                 </form>
             </div>
             <?php
