@@ -138,7 +138,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$players = $pdo->query("SELECT id, nick, is_loot_banned, is_out FROM players ORDER BY nick ASC")->fetchAll();
+$playersQuery = "
+SELECT
+    p.id, p.nick, p.is_loot_banned, p.is_out,
+    (SELECT COUNT(*) FROM session_players sp WHERE sp.player_id = p.id) as attendance_count,
+    (SELECT COUNT(*) FROM sessions) as total_sessions
+FROM players p
+ORDER BY
+    CASE WHEN (SELECT COUNT(*) FROM sessions) > 0
+         THEN (SELECT COUNT(*) FROM session_players sp WHERE sp.player_id = p.id) * 100.0 / (SELECT COUNT(*) FROM sessions)
+         ELSE 0
+    END DESC,
+    p.nick ASC";
+$players = $pdo->query($playersQuery)->fetchAll();
 $items = $pdo->query("SELECT id, name, icon FROM items ORDER BY id ASC")->fetchAll();
 $adminNote = get_setting($pdo, 'admin_note');
 
@@ -226,12 +238,14 @@ require_once 'partials/header.php';
                 <?php if ($step === 1): ?>
                     <h2 class="text-xl font-bold text-slate-200 mb-4"><?= t('step_1') ?></h2>
                     <form method="POST"><div class="mb-4"><label class="text-gray-400 text-xs font-bold uppercase">Boss</label><input type="text" name="boss_name" value="<?= htmlspecialchars($savedBoss) ?>" class="w-full bg-slate-950 border border-slate-700 rounded p-2 mt-1 text-slate-200 focus:border-indigo-600"></div>
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-2 mb-6 max-h-96 overflow-y-auto bg-slate-950/50 p-2 rounded border border-slate-800">
+                    <button type="button" id="toggle-all-btn" class="mb-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-1 px-3 rounded text-sm transition-all shadow-md">Zaznacz wszystkich</button>
+                    <div id="players-grid" class="grid grid-cols-2 md:grid-cols-3 gap-2 mb-6 max-h-96 overflow-y-auto bg-slate-950/50 p-2 rounded border border-slate-800 select-none">
                         <?php foreach($players as $p): 
                             if ($p['is_out']) continue; 
                             $isChecked = in_array($p['id'], $savedPresent) ? 'checked' : ''; $isBanned = $p['is_loot_banned']; 
+                            $percent = $p['total_sessions'] > 0 ? round(($p['attendance_count'] / $p['total_sessions']) * 100) : 0;
                         ?>
-                        <label class="flex items-center gap-2 p-2 bg-slate-900 rounded cursor-pointer hover:bg-slate-800 border border-slate-800 hover:border-slate-600 transition"><input type="checkbox" name="present_players[]" value="<?= $p['id'] ?>" class="accent-indigo-600" <?= $isChecked ?>><span class="text-sm <?= $isBanned ? 'text-gray-500 line-through' : '' ?>"><?= htmlspecialchars($p['nick']) ?></span></label>
+                        <label class="player-label flex items-center gap-2 p-2 bg-slate-900 rounded cursor-pointer hover:bg-slate-800 border border-slate-800 hover:border-slate-600 transition"><input type="checkbox" name="present_players[]" value="<?= $p['id'] ?>" class="player-checkbox accent-indigo-600" <?= $isChecked ?>><span class="text-sm <?= $isBanned ? 'text-gray-500 line-through' : '' ?>"><?= htmlspecialchars($p['nick']) ?> <span class="text-xs text-gray-500">(<?= $percent ?>% - <?= $p['attendance_count'] ?>/<?= $p['total_sessions'] ?>)</span></span></label>
                         <?php endforeach; ?>
                     </div>
                     <button type="submit" name="step_1_submit" class="w-full bg-indigo-600 hover:bg-indigo-600 text-white font-bold py-3 rounded shadow-lg"><?= t('next') ?></button></form>
@@ -557,6 +571,67 @@ require_once 'partials/header.php';
     </main>
 
     <!-- SKRYPTY JS -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Zaznacz wszystkie
+    const toggleBtn = document.getElementById('toggle-all-btn');
+    const checkboxes = document.querySelectorAll('.player-checkbox');
+
+    if (toggleBtn && checkboxes.length > 0) {
+        toggleBtn.addEventListener('click', () => {
+            const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+            checkboxes.forEach(cb => cb.checked = !allChecked);
+        });
+    }
+
+    // 2. Zaznaczanie kursorem (Drag-select)
+    const grid = document.getElementById('players-grid');
+    if (grid) {
+        let isDragging = false;
+        let dragState = null;
+
+        grid.addEventListener('mousedown', (e) => {
+            const label = e.target.closest('.player-label');
+            if (!label) return;
+
+            // Prevent default to stop text selection and native label click which fires later
+            if (e.target.tagName.toLowerCase() !== 'input') {
+                e.preventDefault();
+            }
+
+            const cb = label.querySelector('.player-checkbox');
+            if (cb) {
+                isDragging = true;
+                // Toggle the checkbox visually and save the target state
+                if (e.target.tagName.toLowerCase() !== 'input') {
+                    cb.checked = !cb.checked;
+                    dragState = cb.checked;
+                } else {
+                    // If clicked exactly on the input, the browser already toggles it.
+                    // The new state is its current state right now.
+                    dragState = cb.checked;
+                }
+            }
+        });
+
+        grid.addEventListener('mouseenter', (e) => {
+            if (!isDragging || dragState === null) return;
+            const label = e.target.closest('.player-label');
+            if (!label) return;
+
+            const cb = label.querySelector('.player-checkbox');
+            if (cb && cb.checked !== dragState) {
+                cb.checked = dragState;
+            }
+        }, true); // capturing phase to trigger as mouse enters the label
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+            dragState = null;
+        });
+    }
+});
+</script>
   <script>
 function copyLootToClipboard() {
     const container = document.querySelector('#loot-list-container');
