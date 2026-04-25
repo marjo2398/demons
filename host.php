@@ -301,7 +301,8 @@ require_once 'partials/header.php';
                                 <div class="w-full md:w-1/2">
                                     <div class="flex items-center gap-3 mb-2">
                                         <?php if($it['icon']): ?><img src="icons/<?= $it['icon'] ?>" class="w-10 h-10 border border-slate-700 bg-black/50 object-contain shrink-0"><?php endif; ?>
-                                        <span class="font-bold text-slate-200 item-name"><?= htmlspecialchars($it['name']) ?></span>
+                                        <span class="font-bold text-slate-200 item-name flex-grow"><?= htmlspecialchars($it['name']) ?></span>
+                                        <button type="button" onclick="copySingleItem(this)" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-2 py-1 rounded shadow-md shrink-0">Copy</button>
                                     </div>
                                     <select name="winners[<?= $idx ?>]" class="w-full bg-slate-900 text-slate-400 border <?= $suggestedWinnerId?'border-green-600':'border-slate-600' ?> rounded p-2 focus:border-indigo-600">
                                         <option value="trash">--- Trash ---</option>
@@ -331,13 +332,15 @@ require_once 'partials/header.php';
                         
                         <div class="flex gap-2">
                             <button type="submit" name="go_back" class="w-1/4 bg-slate-800 text-gray-300 font-bold py-3 rounded"><?= t('prev') ?></button>
-                            <button type="button" id="copy-btn" onclick="copyLootToClipboard()" class="w-1/4 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded flex items-center justify-center gap-2 group transition">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:scale-110 transition" viewBox="0 0 20 20" fill="currentColor">
-                                    <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
-                                    <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
-                                </svg>
-                                COPY
-                            </button>
+                            <div id="copy-buttons-container" class="w-1/4 flex gap-1 flex-col md:flex-row justify-center">
+                                <button type="button" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded flex items-center justify-center gap-2 group transition">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:scale-110 transition" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
+                                        <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
+                                    </svg>
+                                    COPY
+                                </button>
+                            </div>
                             <button type="submit" name="step_3_submit" class="w-2/4 bg-green-600 hover:bg-green-500 text-white font-bold py-3 rounded shadow-lg"><?= t('save') ?></button>
                         </div>
                     </form>
@@ -626,12 +629,39 @@ document.addEventListener('DOMContentLoaded', () => {
             dragState = null;
         });
     }
+    const container = document.querySelector('#loot-list-container');
+    if (container) {
+        renderCopyButtons();
+        const selects = container.querySelectorAll('select');
+        selects.forEach(sel => {
+            sel.addEventListener('change', renderCopyButtons);
+        });
+    }
 });
 </script>
   <script>
-function copyLootToClipboard() {
+function copySingleItem(btn) {
+    const row = btn.closest('.loot-item-row');
+    if (!row) return;
+
+    const itemNameEl = row.querySelector('.item-name');
+    const itemName = itemNameEl ? itemNameEl.innerText.trim() : "ITEM";
+
+    const select = row.querySelector('select');
+    let playerNick = "---";
+    if (select) {
+        let rawText = select.options[select.selectedIndex].text;
+        playerNick = rawText.replace(/\s*\((?:Suggested|auto)\)\s*/gi, ' ').trim();
+    }
+
+    const textToCopy = itemName + " - " + playerNick;
+    runCopyCommand(textToCopy, btn);
+}
+
+function renderCopyButtons() {
     const container = document.querySelector('#loot-list-container');
-    if (!container) return;
+    const copyBtnContainer = document.querySelector('#copy-buttons-container');
+    if (!container || !copyBtnContainer) return;
 
     const rows = container.querySelectorAll('.loot-item-row');
     let lines = [];
@@ -650,13 +680,60 @@ function copyLootToClipboard() {
         lines.push(itemName + " - " + playerNick);
     });
 
-    if (lines.length === 0) {
-        alert("Brak przedmiotów do skopiowania!");
+    let chunks = [];
+    let currentChunk = [];
+    let currentLength = 0;
+
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        const lineLength = line.length + (currentChunk.length > 0 ? 2 : 0); // 2 for \r\n
+
+        if (currentLength + lineLength > 80 && currentChunk.length > 0) {
+            chunks.push(currentChunk.join("\r\n"));
+            currentChunk = [line];
+            currentLength = line.length;
+        } else {
+            currentChunk.push(line);
+            currentLength += lineLength;
+        }
+    }
+
+    if (currentChunk.length > 0) {
+        chunks.push(currentChunk.join("\r\n"));
+    }
+
+    copyBtnContainer.innerHTML = '';
+
+    if (chunks.length === 0) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded flex items-center justify-center gap-2 opacity-50 cursor-not-allowed';
+        btn.innerHTML = 'COPY';
+        copyBtnContainer.appendChild(btn);
         return;
     }
 
-    const textToCopy = lines.join("\n");
-    runCopyCommand(textToCopy, document.getElementById('copy-btn'));
+    if (chunks.length === 1) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded flex items-center justify-center gap-2 group transition';
+        btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:scale-110 transition" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
+            <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
+        </svg> COPY`;
+        btn.onclick = () => runCopyCommand(chunks[0], btn);
+        copyBtnContainer.appendChild(btn);
+    } else {
+        chunks.forEach((chunk, index) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-1 rounded flex items-center justify-center gap-1 group transition text-xs md:text-sm shadow-md';
+            btn.innerHTML = `P${index + 1}`;
+            btn.title = `Copy Part ${index + 1}`;
+            btn.onclick = () => runCopyCommand(chunk, btn);
+            copyBtnContainer.appendChild(btn);
+        });
+    }
 }
 
 function copySessionLoot(btn, textToCopy) {
@@ -680,7 +757,7 @@ async function runCopyCommand(text, btnElement) {
 
         btnElement.innerHTML = "✅";
 
-        if (btnElement.id === 'copy-btn') {
+        if (btnElement.classList.contains('bg-indigo-600')) {
             btnElement.classList.remove('bg-indigo-600', 'hover:bg-indigo-500');
             btnElement.classList.add('bg-green-600', 'scale-105');
         } else {
