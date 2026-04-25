@@ -142,14 +142,14 @@ $playersQuery = "
 SELECT
     p.id, p.nick, p.is_loot_banned, p.is_out,
     (SELECT COUNT(*) FROM session_players sp WHERE sp.player_id = p.id) as attendance_count,
-    (SELECT COUNT(*) FROM sessions) as total_sessions
-FROM players p
-ORDER BY
+    (SELECT COUNT(*) FROM sessions) as total_sessions,
     CASE WHEN (SELECT COUNT(*) FROM sessions) > 0
          THEN (SELECT COUNT(*) FROM session_players sp WHERE sp.player_id = p.id) * 100.0 / (SELECT COUNT(*) FROM sessions)
          ELSE 0
-    END DESC,
-    p.nick ASC";
+    END as attendance_percent
+FROM players p
+WHERE p.is_out = 0
+ORDER BY attendance_percent DESC, p.nick ASC";
 $players = $pdo->query($playersQuery)->fetchAll();
 $items = $pdo->query("SELECT id, name, icon FROM items ORDER BY id ASC")->fetchAll();
 $adminNote = get_setting($pdo, 'admin_note');
