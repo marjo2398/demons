@@ -226,7 +226,7 @@ require_once 'partials/header.php';
                         <h3 class="text-xl font-bold text-white uppercase"><?= htmlspecialchars($itemInfo['name']) ?></h3>
                     </div>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
                         <!-- LEFT: BEFORE -->
                         <div class="bg-gray-900 rounded border border-gray-800 overflow-hidden">
                             <div class="bg-gray-800 px-4 py-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Initial State & Change</div>
