@@ -193,7 +193,7 @@ body { font-family: 'Inter', sans-serif; background-color: #111827; color: #e5e7
 CSS;
 $bodyClass = 'mobile-h-screen flex flex-col overflow-hidden';
 $viewport = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
-$pageHeadExtra = '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">';
+$pageHeadExtra = '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><script src="assets/js/chat_utils.js?v=' . $bannerVer . '"></script>';
 require_once 'partials/header.php';
 ?>
 
@@ -574,13 +574,6 @@ require_once 'partials/header.php';
     function toggleEmojis() { document.getElementById('emoji-bar').classList.toggle('hidden'); }
     function addEmoji(emoji) { msgInput.value += emoji + ' '; msgInput.focus(); }
     
-    function linkify(text) {
-        var urlRegex =/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-        return text.replace(urlRegex, function(url) {
-            return '<a href="' + url + '" target="_blank" class="link-highlight break-all">' + url + '</a>';
-        });
-    }
-
     function previewImage(input) {
         // --- NOWOŚĆ: Sprawdzanie rozmiaru ---
         if (input.files && input.files[0]) {
