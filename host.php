@@ -142,13 +142,14 @@ $playersQuery = "
 SELECT
     p.id, p.nick, p.is_loot_banned, p.is_out,
     (SELECT COUNT(*) FROM session_players sp WHERE sp.player_id = p.id) as attendance_count,
-    (SELECT COUNT(*) FROM sessions) as total_sessions
+    (SELECT COUNT(*) FROM sessions) as total_sessions,
+    CASE WHEN (SELECT COUNT(*) FROM sessions) > 0
+         THEN ROUND((SELECT COUNT(*) FROM session_players sp WHERE sp.player_id = p.id) * 100.0 / (SELECT COUNT(*) FROM sessions))
+         ELSE 0
+    END as attendance_percent
 FROM players p
 ORDER BY
-    CASE WHEN (SELECT COUNT(*) FROM sessions) > 0
-         THEN (SELECT COUNT(*) FROM session_players sp WHERE sp.player_id = p.id) * 100.0 / (SELECT COUNT(*) FROM sessions)
-         ELSE 0
-    END DESC,
+    attendance_percent DESC,
     p.nick ASC";
 $players = $pdo->query($playersQuery)->fetchAll();
 $items = $pdo->query("SELECT id, name, icon FROM items ORDER BY id ASC")->fetchAll();
@@ -243,9 +244,9 @@ require_once 'partials/header.php';
                         <?php foreach($players as $p): 
                             if ($p['is_out']) continue; 
                             $isChecked = in_array($p['id'], $savedPresent) ? 'checked' : ''; $isBanned = $p['is_loot_banned']; 
-                            $percent = $p['total_sessions'] > 0 ? round(($p['attendance_count'] / $p['total_sessions']) * 100) : 0;
+                            $percent = $p['attendance_percent'];
                         ?>
-                        <label class="player-label flex items-center gap-2 p-2 bg-slate-900 rounded cursor-pointer hover:bg-slate-800 border border-slate-800 hover:border-slate-600 transition"><input type="checkbox" name="present_players[]" value="<?= $p['id'] ?>" class="player-checkbox accent-indigo-600" <?= $isChecked ?>><span class="text-sm <?= $isBanned ? 'text-gray-500 line-through' : '' ?>"><?= htmlspecialchars($p['nick']) ?> <span class="text-xs text-gray-500">(<?= $percent ?>% - <?= $p['attendance_count'] ?>/<?= $p['total_sessions'] ?>)</span></span></label>
+                        <label class="player-label flex items-center gap-2 p-2 bg-slate-900 rounded cursor-pointer hover:bg-slate-800 border border-slate-800 hover:border-slate-600 transition"><input type="checkbox" name="present_players[]" value="<?= $p['id'] ?>" class="player-checkbox accent-indigo-600" <?= $isChecked ?>><span class="text-sm <?= $isBanned ? 'text-gray-500 line-through' : '' ?>"><?= htmlspecialchars($p['nick']) ?> <span class="text-xs text-gray-500">(<?= $percent ?>%)</span></span></label>
                         <?php endforeach; ?>
                     </div>
                     <button type="submit" name="step_1_submit" class="w-full bg-indigo-600 hover:bg-indigo-600 text-white font-bold py-3 rounded shadow-lg"><?= t('next') ?></button></form>
