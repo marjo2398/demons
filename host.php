@@ -240,7 +240,7 @@ require_once 'partials/header.php';
                     <h2 class="text-xl font-bold text-slate-200 mb-4"><?= t('step_1') ?></h2>
                     <form method="POST"><div class="mb-4"><label class="text-gray-400 text-xs font-bold uppercase">Boss</label><input type="text" name="boss_name" value="<?= htmlspecialchars($savedBoss) ?>" class="w-full bg-slate-950 border border-slate-700 rounded p-2 mt-1 text-slate-200 focus:border-indigo-600"></div>
                     <button type="button" id="toggle-all-btn" class="mb-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-1 px-3 rounded text-sm transition-all shadow-md">Zaznacz wszystkich</button>
-                    <div id="players-grid" class="grid grid-cols-2 md:grid-cols-3 gap-2 mb-6 max-h-96 overflow-y-auto bg-slate-950/50 p-2 rounded border border-slate-800 select-none">
+                    <div id="players-grid" class="grid grid-cols-2 md:grid-cols-3 gap-2 mb-6 max-h-96 overflow-y-auto bg-slate-950/50 p-2 rounded border border-slate-800" style="user-select: none;">
                         <?php foreach($players as $p): 
                             if ($p['is_out']) continue; 
                             $isChecked = in_array($p['id'], $savedPresent) ? 'checked' : ''; $isBanned = $p['is_loot_banned']; 
@@ -595,27 +595,22 @@ document.addEventListener('DOMContentLoaded', () => {
             const label = e.target.closest('.player-label');
             if (!label) return;
 
-            // Prevent default to stop text selection and native label click which fires later
-            if (e.target.tagName.toLowerCase() !== 'input') {
-                e.preventDefault();
-            }
+            // Zapobiega domyślnym zdarzeniom jak zaznaczanie tekstu podczas przeciągania
+            e.preventDefault();
 
             const cb = label.querySelector('.player-checkbox');
             if (cb) {
                 isDragging = true;
-                // Toggle the checkbox visually and save the target state
-                if (e.target.tagName.toLowerCase() !== 'input') {
-                    cb.checked = !cb.checked;
-                    dragState = cb.checked;
-                } else {
-                    // If clicked exactly on the input, the browser already toggles it.
-                    // The new state is its current state right now.
-                    dragState = cb.checked;
-                }
+
+                // Zmieniamy stan na przeciwny
+                cb.checked = !cb.checked;
+
+                // Zapisujemy stan (zaznaczenie lub odznaczenie), w którym chcemy ustawiać pozostałe checkbox'y
+                dragState = cb.checked;
             }
         });
 
-        grid.addEventListener('mouseenter', (e) => {
+        grid.addEventListener('mouseover', (e) => {
             if (!isDragging || dragState === null) return;
             const label = e.target.closest('.player-label');
             if (!label) return;
@@ -624,7 +619,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (cb && cb.checked !== dragState) {
                 cb.checked = dragState;
             }
-        }, true); // capturing phase to trigger as mouse enters the label
+        });
 
         window.addEventListener('mouseup', () => {
             isDragging = false;
