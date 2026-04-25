@@ -636,6 +636,24 @@ document.addEventListener('DOMContentLoaded', () => {
         selects.forEach(sel => {
             sel.addEventListener('change', renderCopyButtons);
         });
+
+        // Remove duplicate single-item Copy buttons
+        const allRows = document.querySelectorAll('.loot-item-row');
+        const seenItems = new Set();
+        allRows.forEach(row => {
+            const itemNameEl = row.querySelector('.item-name');
+            if (itemNameEl) {
+                const itemName = itemNameEl.innerText.trim();
+                if (seenItems.has(itemName)) {
+                    const btn = row.querySelector('button[onclick="copySingleItem(this)"]');
+                    if (btn) {
+                        btn.remove();
+                    }
+                } else {
+                    seenItems.add(itemName);
+                }
+            }
+        });
     }
 });
 </script>
@@ -647,14 +665,23 @@ function copySingleItem(btn) {
     const itemNameEl = row.querySelector('.item-name');
     const itemName = itemNameEl ? itemNameEl.innerText.trim() : "ITEM";
 
-    const select = row.querySelector('select');
-    let playerNick = "---";
-    if (select) {
-        let rawText = select.options[select.selectedIndex].text;
-        playerNick = rawText.replace(/\s*\((?:Suggested|auto)\)\s*/gi, ' ').trim();
-    }
+    const allRows = document.querySelectorAll('.loot-item-row');
+    let players = [];
 
-    const textToCopy = itemName + " - " + playerNick;
+    allRows.forEach(r => {
+        const rNameEl = r.querySelector('.item-name');
+        const rName = rNameEl ? rNameEl.innerText.trim() : "ITEM";
+        if (rName === itemName) {
+            const select = r.querySelector('select');
+            if (select) {
+                let rawText = select.options[select.selectedIndex].text;
+                let playerNick = rawText.replace(/\s*\((?:Suggested|auto)\)\s*/gi, ' ').trim();
+                players.push(playerNick);
+            }
+        }
+    });
+
+    const textToCopy = itemName + " - " + players.join(', ');
     runCopyCommand(textToCopy, btn);
 }
 
